@@ -1,7 +1,6 @@
 "use server";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import MessageSubmit from "@/components/messageSubmit";
 
 import {
   Card,
@@ -13,19 +12,23 @@ import {
 } from "@/components/ui/card";
 import { Message } from "@prisma/client";
 
+const currentUser = 90;
+
 export default async function MessageEntry({
   id,
   user, // why though??
   content,
   timestamp
 }:Message) {
+
   
+const stupidCode =currentUser===user.id ? "ml-auto bg-[lightblue]"  :"";
 
   return (
     <Card
       key={id}
-      className="mt-2 mb-2 bg-slate-100 snap-center w-[400px]"
-    >
+      className={`mt-2 mb-2 bg-slate-100 snap-center w-[400px]  ${stupidCode}`}
+    >                             
       <CardHeader className="flex-row flex-nowrap item-center">
         <Avatar className="mr-2">
           <AvatarImage src={user.image || ""} />
