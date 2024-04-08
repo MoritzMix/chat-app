@@ -33,7 +33,7 @@ export async function createPost(roomId: string, data: FormData) {
 
   await prisma.message.create({
     data: {
-      user_id: 1,
+      user_id: 90,
       room_id: Number(roomId),
       content,
     },

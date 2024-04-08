@@ -11,34 +11,36 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Message } from "@prisma/client";
 
 export default async function MessageEntry({
-  params,
-}: {
-  params: { roomId: number };
-}) {
-  const { roomId = -1 } = params;
+  id,
+  user,
+  content,
+  timestamp
+}:Message) {
+  
 
   return (
     <Card
-      key={message.id}
+      key={id}
       className="mt-2 mb-2 bg-slate-100 snap-center w-[400px]"
     >
       <CardHeader className="flex-row flex-nowrap item-center">
         <Avatar className="mr-2">
-          <AvatarImage src={message.user.image || ""} />
+          <AvatarImage src={user.image || ""} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <p className="mt-0">
-          {message.user.name} {message.user.surname}
+          {user.name} {user.surname}
         </p>
         <p className="text-sm text-muted-foreground ml-auto">
-          {message.timestamp.toLocaleDateString()}
+          {timestamp.toLocaleDateString()}
         </p>
       </CardHeader>
       <CardContent>
         <div className="space-y-1">
-          <p className="text-sm font-medium leading-none">{message.content}</p>
+          <p className="text-sm font-medium leading-none">{content}</p>
         </div>
       </CardContent>
     </Card>

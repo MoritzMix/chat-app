@@ -2,6 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MessageSubmit from "@/components/messageSubmit";
+import MessageEntry from "@/components/messageEntry";
 
 import {
   Card,
@@ -43,30 +44,7 @@ export default async function ChatList({
         className="p-6 snap-y"
       >
         {messages.map((message) => (
-          <Card
-            key={message.id}
-            className="mt-2 mb-2 bg-slate-100 snap-center w-[400px]"
-          >
-            <CardHeader className="flex-row flex-nowrap item-center">
-              <Avatar className="mr-2">
-                <AvatarImage src={message.user.image || ""} />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <p className="mt-0">
-                {message.user.name} {message.user.surname}
-              </p>
-              <p className="text-sm text-muted-foreground ml-auto">
-                {message.timestamp.toLocaleDateString()}
-              </p>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-1">
-                <p className="text-sm font-medium leading-none">
-                  {message.content}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          <MessageEntry key={message.id} {...message}/>
         ))}
       </ScrollArea>
       <MessageSubmit
