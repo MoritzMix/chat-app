@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Message } from "@prisma/client";
 
-const currentUser = 90;
+const currentUser = 95; //ToDo: Be serious
 
 export default async function MessageEntry({
   id,
@@ -21,7 +21,7 @@ export default async function MessageEntry({
   timestamp
 }:Message) {
 
-  
+
 const stupidCode =currentUser===user.id ? "ml-auto bg-[lightblue]"  :"";
 
   return (
@@ -38,7 +38,7 @@ const stupidCode =currentUser===user.id ? "ml-auto bg-[lightblue]"  :"";
           {user.name} {user.surname}
         </p>
         <p className="text-sm text-muted-foreground ml-auto">
-          {timestamp.toLocaleDateString()}
+          {timestamp.toLocaleTimeString("de")}
         </p>
       </CardHeader>
       <CardContent>
