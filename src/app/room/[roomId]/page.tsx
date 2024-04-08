@@ -1,17 +1,7 @@
 "use server";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MessageSubmit from "@/components/messageSubmit";
 import MessageEntry from "@/components/messageEntry";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 

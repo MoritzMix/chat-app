@@ -15,7 +15,7 @@ import { Message } from "@prisma/client";
 
 export default async function MessageEntry({
   id,
-  user,
+  user, // why though??
   content,
   timestamp
 }:Message) {
