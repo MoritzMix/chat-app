@@ -19,6 +19,7 @@ export default async function ChatList({
     where: { id: Number(roomId) },
   });
 
+  //probably should exclude pwhash and email
   const messages = await prisma.message.findMany({
     where: { room_id: Number(roomId) },
     include: {
@@ -34,7 +35,7 @@ export default async function ChatList({
         className="p-6 snap-y"
       >
         {messages.map((message) => (
-          <MessageEntry key={message.id} {...message}/>
+          <MessageEntry key={message.id} {...message} />
         ))}
       </ScrollArea>
       <MessageSubmit
