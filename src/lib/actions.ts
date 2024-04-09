@@ -1,6 +1,7 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
+
 import { AuthError } from "next-auth";
 
 import prisma from "@/lib/prisma";
@@ -24,6 +25,10 @@ export async function authenticate(
     }
     throw error;
   }
+}
+
+export async function logOut() {
+  await signOut();
 }
 
 export async function createPost(roomId: string, data: FormData) {
