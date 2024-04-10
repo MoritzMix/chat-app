@@ -25,6 +25,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^1.0.0",
+    "eventsource": "^2.0.2",
     "lucide-react": "^0.364.0",
     "next": "14.1.4",
     "next-auth": "^5.0.0-beta.16",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/eventsource": "^1.1.15",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

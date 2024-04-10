@@ -33,8 +33,6 @@ export async function createPost(roomId: string, data: FormData) {
 
   const session = await auth();
 
-  console.log("add", session);
-
   await prisma.message.create({
     data: {
       user_id: Number(session?.user?.id),
@@ -42,6 +40,17 @@ export async function createPost(roomId: string, data: FormData) {
       content,
     },
   });
+
+  //push update to api
+  const response = await fetch("http://localhost:3000/api/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/event-stream",
+    },
+    body: "test",
+  });
+
+  console.log(response);
 
   //return { success: true };
   revalidatePath("sinnlos?");
