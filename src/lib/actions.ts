@@ -41,17 +41,21 @@ export async function createPost(roomId: string, data: FormData) {
     },
   });
 
-  //push update to api
-  const response = await fetch("http://localhost:3000/api/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "text/event-stream",
-    },
-    body: "test",
-  });
-
-  console.log(response);
+  sendMessageToSSE(content);
 
   //return { success: true };
   revalidatePath("sinnlos?");
 }
+
+// Example code to send message to SSE endpoint
+const sendMessageToSSE = async (message) => {
+  try {
+    await fetch("http://localhost:3000/api", {
+      method: "POST",
+      body: JSON.stringify(message),
+    });
+    console.log("Message sent successfully", message);
+  } catch (error) {
+    console.error("Error sending message:", error);
+  }
+};
