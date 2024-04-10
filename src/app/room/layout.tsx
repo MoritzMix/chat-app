@@ -12,8 +12,6 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = 1;
-
   return (
     <ResizablePanelGroup className="h-full" direction="horizontal">
       <ResizablePanel defaultSize={30}>

@@ -1,11 +1,8 @@
 "use server";
 
-import { signIn, signOut } from "@/auth";
-
-import { AuthError } from "next-auth";
-
 import prisma from "@/lib/prisma";
-
+import { auth, signIn, signOut } from "@/auth";
+import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 
 export async function authenticate(
@@ -34,11 +31,13 @@ export async function logOut() {
 export async function createPost(roomId: string, data: FormData) {
   const content = data.get("message") as string;
 
-  console.log("add", content);
+  const session = await auth();
+
+  console.log("add", session);
 
   await prisma.message.create({
     data: {
-      user_id: 90,
+      user_id: Number(session?.user?.id),
       room_id: Number(roomId),
       content,
     },

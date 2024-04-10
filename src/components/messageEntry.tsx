@@ -1,5 +1,7 @@
 "use server";
 
+import { auth } from "@/auth";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import {
@@ -14,14 +16,13 @@ import { Message } from "@prisma/client";
 
 interface MessageWithUser extends Message {
   user: {
-    id: number;
+    id: string;
+    email: string;
     name: string;
     surname: string;
     image: string | null;
   };
 }
-
-const currentUser = 95; //ToDo: Be serious
 
 export default async function MessageEntry({
   id,
@@ -29,8 +30,10 @@ export default async function MessageEntry({
   content,
   timestamp,
 }: MessageWithUser) {
+  const currentUser = await auth();
+
   const currentUserStyle =
-    currentUser === user.id ? "ml-auto bg-[lightblue]" : "";
+    currentUser?.user?.id == String(user?.id) ? "ml-auto bg-[lightblue]" : "";
 
   return (
     <Card

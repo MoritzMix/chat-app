@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import { authConfig } from "./auth.config";
+import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 
@@ -14,8 +14,6 @@ async function getUser(email: string): Promise<User | null> {
         email,
       },
     });
-
-    console.log(user);
     return user;
   } catch (error) {
     console.error("Failed to fetch user:", error);
@@ -23,8 +21,27 @@ async function getUser(email: string): Promise<User | null> {
   }
 }
 
-export const { auth, signIn, signOut } = NextAuth({
-  ...authConfig,
+export const authConfig = {
+  pages: {
+    signIn: "/login",
+  },
+  callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnDashboard = nextUrl.pathname.startsWith("/room");
+      if (isOnDashboard) {
+        if (isLoggedIn) return true;
+        return false; // Redirect unauthenticated users to login page
+      } else if (isLoggedIn) {
+        return Response.redirect(new URL("/room", nextUrl));
+      }
+      return true;
+    },
+    async session({ session, token }) {
+      session.user.id = token.sub;
+      return session; // The return type will match the one returned in `useSession()`
+    },
+  },
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -36,13 +53,19 @@ export const { auth, signIn, signOut } = NextAuth({
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
           if (!user) return null;
-          const passwordsMatch = await bcrypt.compare(password, user.pwhash);
+          const passwordsMatch = password == user.pwhash; //await bcrypt.compare(password, user.pwhash);
 
           if (passwordsMatch) return user;
         }
-
         return null;
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+} satisfies NextAuthConfig;
+
+export const { auth, signIn, signOut } = NextAuth({
+  ...authConfig,
 });
