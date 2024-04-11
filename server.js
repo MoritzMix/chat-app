@@ -26,7 +26,7 @@ app.prepare().then(async () => {
     return handle(req, res);
   });
 
-  const PORT = process.env.PORT || 3001;
+  const PORT = 3000; //process.env.PORT || 3001;
   httpServer.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });

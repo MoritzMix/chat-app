@@ -5,6 +5,17 @@ import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 
+import axios from "axios";
+import io from "socket.io-client";
+
+// Define the URL where your Socket.IO server is running
+const socket = io("http://localhost:3000");
+
+// Define the type for the message
+type MessageType = {
+  message: string;
+};
+
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData
@@ -28,6 +39,10 @@ export async function logOut() {
   await signOut();
 }
 
+export async function reloadData() {
+  revalidatePath("sinnlos?");
+}
+
 export async function createPost(roomId: string, data: FormData) {
   const content = data.get("message") as string;
 
@@ -40,22 +55,27 @@ export async function createPost(roomId: string, data: FormData) {
       content,
     },
   });
-
-  sendMessageToSSE(content);
+  //then
+  sendMessageToStream(content);
 
   //return { success: true };
   revalidatePath("sinnlos?");
 }
 
-// Example code to send message to SSE endpoint
-const sendMessageToSSE = async (message) => {
+const sendMessageToStream = async (message: string): Promise<void> => {
   try {
-    await fetch("http://localhost:3000/api", {
-      method: "POST",
-      body: JSON.stringify(message),
-    });
-    console.log("Message sent successfully", message);
+    // Perform any necessary actions here
+    // For example, making an API call using axios
+    const response = await axios.post<MessageType>(
+      "http://localhost:3000/api/ws",
+      {
+        message,
+      }
+    );
+
+    // If the action was successful, emit the message to the stream
+    socket.emit("message1", message);
   } catch (error) {
-    console.error("Error sending message:", error);
+    console.error("Error sending message to stream:", error);
   }
 };
