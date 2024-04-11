@@ -59,7 +59,7 @@ export async function createPost(roomId: string, data: FormData) {
   sendMessageToStream(content);
 
   //return { success: true };
-  revalidatePath("sinnlos?");
+  //revalidatePath("sinnlos?"); //shall we do this for faster responsiveness?
 }
 
 const sendMessageToStream = async (message: string): Promise<void> => {

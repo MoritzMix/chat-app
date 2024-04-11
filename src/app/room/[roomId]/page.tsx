@@ -8,6 +8,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+import { auth } from "@/auth";
+
 export default async function ChatList({
   params,
 }: {
@@ -20,12 +22,16 @@ export default async function ChatList({
   });
 
   //probably should exclude pwhash and email
+  //ToDo order by timestamp
   const messages = await prisma.message.findMany({
     where: { room_id: Number(roomId) },
     include: {
       user: true,
     },
   });
+
+  const currentUser = await auth();
+  const currentUserId = Number(currentUser?.user?.id);
 
   return (
     <div className="h-full">
@@ -35,7 +41,11 @@ export default async function ChatList({
         className="p-6 snap-y"
       >
         {messages.map((message) => (
-          <MessageEntry key={message.id} {...message} />
+          <MessageEntry
+            key={message.id}
+            message={message}
+            isCurrentUser={currentUserId === message?.user?.id}
+          />
         ))}
       </ScrollArea>
       <MessageSubmit
