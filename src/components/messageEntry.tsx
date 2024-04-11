@@ -1,5 +1,10 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import io from "socket.io-client";
+const socket = io("http://localhost:3000");
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageWithData } from "@/lib/interfaces";
 
@@ -15,6 +20,15 @@ import {
 import { FC } from "react";
 
 const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
+  const router = useRouter();
+  useEffect(() => {
+    socket.on("message2", (data) => {
+      console.log("Recieved from SERVER ::", data);
+
+      // Execute any command
+      router.refresh();
+    });
+  }, [socket]);
   const currentUserStyle = isCurrentUser ? "ml-auto bg-[lightblue]" : "";
 
   return (
