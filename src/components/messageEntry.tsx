@@ -38,7 +38,7 @@ export default async function MessageEntry({
   return (
     <Card
       key={id}
-      className={`mt-2 mb-2 bg-slate-100 snap-center w-[400px]  ${currentUserStyle}`}
+      className={`mt-2 mb-2 bg-slate-100 snap-center w-[400px] last:animate-fade-down last:animate-once last:animate-duration-[400ms] ${currentUserStyle}`}
     >
       <CardHeader className="flex-row flex-nowrap item-center">
         <Avatar className="mr-2">
