@@ -1,3 +1,5 @@
+/*
+
 "use client";
 
 import {
@@ -5,17 +7,16 @@ import {
   KeyIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button } from "@/components/ui/button";
 import { useFormState, useFormStatus } from "react-dom";
 import { authenticate } from "@/lib/actions";
 
-export default function LoginForm() {
+export function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
   return (
-    <form action={dispatch} className="space-y-3">
-      <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
+    <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
+      <form action={dispatch} className="space-y-3">
         <h1 className={`mb-3 text-2xl`}>Please log in to continue.</h1>
         <div className="w-full">
           <div>
@@ -71,8 +72,9 @@ export default function LoginForm() {
             </>
           )}
         </div>
-      </div>
-    </form>
+      </form>
+      <div className="divide-y divide-gray-200 pt-6" />
+    </div>
   );
 }
 
@@ -81,7 +83,89 @@ function LoginButton() {
 
   return (
     <Button className="mt-4 w-full" aria-disabled={pending}>
-      Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+      Log in
     </Button>
+  );
+}
+
+*/
+
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, useFormState } from "react-hook-form";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+const userFormSchema = z.object({
+  email: z
+    .string({
+      required_error: "Please select an email to display.",
+    })
+    .email(),
+  password: z.string(),
+});
+
+type ProfileFormValues = z.infer<typeof userFormSchema>;
+
+const defaultValues: Partial<ProfileFormValues> = {};
+
+export function LoginForm({ authenticate }: { authenticate: Function }) {
+  const form = useForm<ProfileFormValues>({
+    resolver: zodResolver(userFormSchema),
+    defaultValues,
+    mode: "onChange",
+  });
+
+  function onSubmit(data) {
+    console.log("FORM", data, form.getValues());
+    authenticate(undefined, form.getValues());
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>EMail</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Passwort</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
   );
 }

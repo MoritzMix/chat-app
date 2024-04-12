@@ -12,6 +12,14 @@ export interface MessageWithUser extends Message {
   };
 }
 
+export interface UserData {
+  name: string;
+  surname: string;
+  image: string;
+  email: string;
+  password: string;
+}
+
 export interface MessageWithData extends MessageWithUser {
   message: MessageWithUser;
   isCurrentUser: boolean;

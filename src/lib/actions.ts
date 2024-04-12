@@ -7,6 +7,8 @@ import { revalidatePath } from "next/cache";
 
 import axios from "axios";
 import io from "socket.io-client";
+import bcrypt from "bcrypt";
+import { UserData } from "./interfaces";
 
 // Define the URL where your Socket.IO server is running
 const socket = io("http://localhost:3000");
@@ -16,12 +18,13 @@ type MessageType = {
   message: string;
 };
 
-export async function authenticate(
-  prevState: string | undefined,
-  formData: FormData
-) {
+export async function authenticate(prevState: string | undefined, data: any) {
+  console.log("AUTH111", data);
   try {
-    await signIn("credentials", formData);
+    await signIn("credentials", {
+      username: "user@example.com",
+      password: "password123",
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -31,7 +34,8 @@ export async function authenticate(
           return "Something went wrong.";
       }
     }
-    throw error;
+    console.log("FUCKYOU!!!!");
+    //throw error;
   }
 }
 
@@ -41,6 +45,35 @@ export async function logOut() {
 
 export async function reloadData() {
   revalidatePath("sinnlos?");
+}
+
+export async function createUser(data) {
+  console.log("CREATE USER", data);
+
+  /*
+  const { name, surname, image, email, password } = data;
+  const pwhash = password; //await bcrypt.hash(password, 10);
+
+
+
+
+  try {
+    const newUser = await prisma.user.create({
+      data: {
+        name,
+        surname,
+        image,
+        email,
+        pwhash,
+      },
+    });
+    console.log("User created successfully:", newUser);
+
+    authenticate(undefined, data);
+    //then maybe authentificate
+  } catch (error) {
+    console.error("Error creating user:", error);
+  }*/
 }
 
 export async function createPost(roomId: string, data: FormData) {
@@ -59,7 +92,6 @@ export async function createPost(roomId: string, data: FormData) {
   sendMessageToStream(content);
 
   //return { success: true };
-  //revalidatePath("sinnlos?"); //shall we do this for faster responsiveness?
 }
 
 const sendMessageToStream = async (message: string): Promise<void> => {
