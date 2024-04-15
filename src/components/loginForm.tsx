@@ -129,7 +129,6 @@ export function LoginForm({ authenticate }: { authenticate: Function }) {
   });
 
   function onSubmit(data) {
-    console.log("FORM", data, form.getValues());
     authenticate(undefined, form.getValues());
   }
 

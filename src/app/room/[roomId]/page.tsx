@@ -8,7 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-import { auth } from "@/auth";
+import { auth } from "@/auth2";
 
 export default async function ChatList({
   params,

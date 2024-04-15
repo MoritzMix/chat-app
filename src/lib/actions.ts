@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 
 import axios from "axios";
 import io from "socket.io-client";
+
 import bcrypt from "bcrypt";
 import { UserData } from "./interfaces";
 
@@ -19,11 +20,10 @@ type MessageType = {
 };
 
 export async function authenticate(prevState: string | undefined, data: any) {
-  console.log("AUTH111", data);
   try {
     await signIn("credentials", {
-      username: "user@example.com",
-      password: "password123",
+      email: data.email,
+      password: data.password,
     });
   } catch (error) {
     if (error instanceof AuthError) {
@@ -34,8 +34,8 @@ export async function authenticate(prevState: string | undefined, data: any) {
           return "Something went wrong.";
       }
     }
-    console.log("FUCKYOU!!!!");
-    //throw error;
+
+    throw error;
   }
 }
 
