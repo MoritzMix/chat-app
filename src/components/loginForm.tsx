@@ -128,8 +128,8 @@ export function LoginForm({ authenticate }: { authenticate: Function }) {
     mode: "onChange",
   });
 
-  function onSubmit(data) {
-    authenticate(undefined, form.getValues());
+  function onSubmit() {
+    authenticate(form.getValues());
   }
 
   return (
@@ -163,7 +163,7 @@ export function LoginForm({ authenticate }: { authenticate: Function }) {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Login</Button>
       </form>
     </Form>
   );

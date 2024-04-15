@@ -19,7 +19,8 @@ type MessageType = {
   message: string;
 };
 
-export async function authenticate(prevState: string | undefined, data: any) {
+export async function authenticate(data: any) {
+  console.log("data", data);
   try {
     await signIn("credentials", {
       email: data.email,
@@ -50,12 +51,8 @@ export async function reloadData() {
 export async function createUser(data) {
   console.log("CREATE USER", data);
 
-  /*
   const { name, surname, image, email, password } = data;
   const pwhash = password; //await bcrypt.hash(password, 10);
-
-
-
 
   try {
     const newUser = await prisma.user.create({
@@ -69,11 +66,10 @@ export async function createUser(data) {
     });
     console.log("User created successfully:", newUser);
 
-    authenticate(undefined, data);
-    //then maybe authentificate
+    authenticate({ email, password });
   } catch (error) {
     console.error("Error creating user:", error);
-  }*/
+  }
 }
 
 export async function createPost(roomId: string, data: FormData) {
