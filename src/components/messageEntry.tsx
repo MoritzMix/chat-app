@@ -29,7 +29,9 @@ const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
       router.refresh();
     });
   }, [socket]);
-  const currentUserStyle = isCurrentUser ? "ml-auto bg-[lightblue]" : "";
+  const currentUserStyle = isCurrentUser
+    ? "ml-auto bg-chat-purple-lightest border-chat-purple-light"
+    : "bg-chat-blue-lightest border-chat-blue-light";
 
   return (
     <Card

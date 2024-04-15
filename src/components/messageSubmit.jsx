@@ -12,7 +12,9 @@ export default function RoomEntry({ className, roomId }) {
           name="message"
           placeholder="Nachricht eingeben"
         />
-        <Button type="submit">Senden</Button>
+        <Button className="chat-purple-dark" type="submit">
+          Senden
+        </Button>
       </div>
     </form>
   );

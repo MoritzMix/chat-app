@@ -72,11 +72,12 @@ export async function createUser(data) {
   }
 }
 
+//ToDo: Change to other format
 export async function createPost(roomId: string, data: FormData) {
   const content = data.get("message") as string;
 
   const session = await auth();
-
+  console.log("CREATE POST", roomId, session?.user?.id, content);
   await prisma.message.create({
     data: {
       user_id: Number(session?.user?.id),
@@ -90,8 +91,48 @@ export async function createPost(roomId: string, data: FormData) {
   //return { success: true };
 }
 
+export async function createRoom(data) {
+  console.log("CREATE ROOM", data);
+
+  const { name, description, image } = data;
+
+  const newRoom = await prisma.room.create({
+    data: {
+      name,
+      description,
+      image,
+    },
+  });
+
+  console.log("Room created successfully:", newRoom);
+  //sendMessageToStream shouldnt take any data.
+  sendMessageToStream(name);
+
+  //return { success: true };
+}
+
+export async function deleteRoom(data) {
+  console.log("Delete Room", data);
+
+  const { id } = data;
+
+  try {
+    const deleteRoom = await prisma.room.delete({
+      where: {
+        id: id,
+      },
+    });
+    console.log("Room successfully deleted:", deleteRoom);
+  } catch (error) {
+    console.error("Error deleting room:", error);
+  }
+  //sendMessageToStream shouldnt take any data.
+  sendMessageToStream("1");
+}
+
 const sendMessageToStream = async (message: string): Promise<void> => {
   try {
+    console.log("sending update", message);
     // Perform any necessary actions here
     // For example, making an API call using axios
     const response = await axios.post<MessageType>(

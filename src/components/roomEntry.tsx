@@ -2,7 +2,9 @@
 
 import { Room } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { deleteRoom } from "@/lib/actions";
 
 interface RoomWithCount extends Room {
   _count: {
@@ -19,8 +21,16 @@ export default function RoomEntry({
 }: RoomWithCount) {
   const router = useRouter();
 
+  function deleteRoomHandler(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    deleteRoom({ id });
+  }
+
   return (
-    <li onClick={() => router.push(`/room/${id}`)} className="py-4 w-full flex">
+    <li
+      onClick={() => router.push(`/room/${id}`)}
+      className="py-4 w-full flex relative group"
+    >
       <Image
         width={10}
         height={10}
@@ -28,6 +38,14 @@ export default function RoomEntry({
         src={image || ""}
         alt={name}
       />
+
+      <Button
+        onClick={deleteRoomHandler}
+        type="submit"
+        className="absolute rounded-full h-3 w-3 p-2 top-3 left-0 group-hover:visible invisible"
+      >
+        x
+      </Button>
 
       <div className="ml-3">
         <p className="text-sm font-medium text-gray-900">{name}</p>

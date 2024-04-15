@@ -10,7 +10,7 @@ datasource db {
 model Room {
   id          Int       @id @default(autoincrement())
   name        String
-  description String
+  description String?
   image       String?
   Message     Message[]
 }
@@ -31,6 +31,6 @@ model Message {
   user_id   Int
   content   String
   timestamp DateTime @default(now())
-  user      User     @relation(fields: [user_id], references: [id])
-  room      Room     @relation(fields: [room_id], references: [id])
+  user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  room      Room     @relation(fields: [room_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

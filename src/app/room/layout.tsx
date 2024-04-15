@@ -5,7 +5,10 @@ import {
 } from "@/components/ui/resizable";
 
 import Rooms from "@/components/rooms";
+
+import { CreateRoomForm } from "@/components/createRoomForm";
 import User from "@/components/user";
+import { createRoom } from "@/lib/actions";
 
 export default function Layout({
   children,
@@ -19,6 +22,7 @@ export default function Layout({
         <User />
 
         <Rooms />
+        <CreateRoomForm createRoom={createRoom} />
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={70}>{children}</ResizablePanel>

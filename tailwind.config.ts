@@ -20,6 +20,25 @@ const config = {
     },
     extend: {
       colors: {
+        "chat-blue": {
+          lightest: "#DAF0F8",
+          light: "#ADD8E6",
+          DEFAULT: "#7EB8CB",
+          dark: "#5190A5",
+        },
+        "chat-purple": {
+          lightest: "#E0DFF9",
+          light: "#B9B7EB",
+          DEFAULT: "#908DD5",
+          dark: "#6763B7",
+        },
+        "chat-green": {
+          lightest: "#E1FCDD",
+          light: "#BDF3B5",
+          DEFAULT: "#98E78C",
+          dark: "#73D664",
+        },
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
