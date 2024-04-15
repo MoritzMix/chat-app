@@ -1,5 +1,5 @@
 import { logOut } from "@/lib/actions";
-import { auth } from "@/auth2";
+import { auth } from "@/auth";
 
 export default async function LogOutButton() {
   const data = await auth();

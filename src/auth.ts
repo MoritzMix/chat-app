@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
@@ -20,7 +21,7 @@ async function getUser(email: string): Promise<User | null> {
 
 // Your own logic for dealing with plaintext password strings; be careful!
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const authConfig = {
   pages: {
     signIn: "/login",
   },
@@ -60,4 +61,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+} satisfies NextAuthConfig;
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
 });
