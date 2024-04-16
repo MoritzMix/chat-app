@@ -17,14 +17,14 @@ import { FC } from "react";
 const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
   const currentUserStyle = isCurrentUser
     ? "ml-auto bg-chat-purple-lightest border-chat-purple-light"
-    : "bg-chat-blue-lightest border-chat-blue-light";
+    : "bg-gray-100 border-gray-200";
 
   return (
     <Card
-      className={`mt-2 mb-2 bg-slate-100 snap-center w-[400px] last:animate-fade-down last:animate-once last:animate-duration-[400ms] ${currentUserStyle}`}
+      className={`my-6 bg-slate-100 snap-center w-[400px] last:animate-fade-down last:animate-once last:animate-duration-[400ms] ${currentUserStyle}`}
     >
       <CardHeader className="flex-row flex-nowrap item-center">
-        <Avatar className="mr-2">
+        <Avatar className="mr-2 h-7 w-7">
           <AvatarImage src={message.user.image || ""} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
@@ -37,7 +37,7 @@ const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
       </CardHeader>
       <CardContent>
         <div className="space-y-1">
-          <p className="text-sm font-medium leading-none">{message.content}</p>
+          <p className="text-sm font-medium">{message.content}</p>
         </div>
       </CardContent>
     </Card>

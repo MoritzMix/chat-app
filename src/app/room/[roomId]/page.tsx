@@ -49,7 +49,7 @@ export default async function ChatList({
         ))}
       </ScrollArea>
       <MessageSubmit
-        className="pl-6 ml-auto w-[400px] divide-y divide-gray-200"
+        className="pl-6 ml-auto w-[400px]"
         roomId={roomId}
       ></MessageSubmit>
     </div>

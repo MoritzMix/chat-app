@@ -1,13 +1,8 @@
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
-
 import Rooms from "@/components/rooms";
 import { CreateRoomForm } from "@/components/createRoomForm";
-import User from "@/components/user";
 import { createRoom } from "@/lib/actions";
+import { Separator } from "@/components/ui/separator";
+import Header from "@/components/header";
 
 export default function Layout({
   children,
@@ -15,15 +10,16 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <ResizablePanelGroup className="h-full" direction="horizontal">
-      <ResizablePanel defaultSize={30}>
-        <p className="">USER</p>
-        <User />
-        <Rooms />
-        <CreateRoomForm createRoom={createRoom} />
-      </ResizablePanel>
-      <ResizableHandle />
-      <ResizablePanel defaultSize={70}>{children}</ResizablePanel>
-    </ResizablePanelGroup>
+    <div className="h-full">
+      <Header />
+      <div className="h-full w-full p-12 pt-[72px] flex">
+        <div className="w-1/3">
+          <Rooms />
+          <Separator />
+          <CreateRoomForm createRoom={createRoom} />
+        </div>
+        <div className="w-2/3">{children}</div>
+      </div>
+    </div>
   );
 }

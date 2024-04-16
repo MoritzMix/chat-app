@@ -8,14 +8,14 @@ export interface MessageWithUser extends Message {
     id: number;
     name: string;
     surname: string;
-    image: string;
+    image: string | null;
   };
 }
 
 export interface UserData {
   name: string;
   surname: string;
-  image: string;
+  image: string | null;
   email: string;
   password: string;
 }

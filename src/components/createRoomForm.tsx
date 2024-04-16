@@ -55,71 +55,73 @@ export function CreateRoomForm({
   const [open, setOpen] = useState(false);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button>
-          <CirclePlus className="mr-2 h-4 w-4" /> Create new
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="bg-chat-purple-light">
-        <DialogHeader>
-          <DialogTitle>Create new room</DialogTitle>
-          <DialogDescription>
-            <CreateRoomForm createRoom={createRoom} />
+    <div className="pt-6 pr-3">
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button className="w-full">
+            <CirclePlus className="mr-2 h-4 w-4" /> Create new
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="bg-chat-purple-light">
+          <DialogHeader>
+            <DialogTitle>Create new room</DialogTitle>
+            <DialogDescription>
+              <CreateRoomForm createRoom={createRoom} />
 
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="w-2/3 space-y-6"
-              >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="w-2/3 space-y-6"
+                >
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Description</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name="image"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Image-URL</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="image"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Image-URL</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <Button type="submit">Create Room</Button>
-              </form>
-            </Form>
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+                  <Button type="submit">Create Room</Button>
+                </form>
+              </Form>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
