@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { deleteRoom } from "@/lib/actions";
+import { CircleX, X } from "lucide-react";
 
 interface RoomWithCount extends Room {
   _count: {
@@ -42,9 +43,10 @@ export default function RoomEntry({
       <Button
         onClick={deleteRoomHandler}
         type="submit"
+        size="icon"
         className="absolute rounded-full h-3 w-3 p-2 top-3 left-0 group-hover:visible invisible"
       >
-        x
+        <CircleX className="text-white" />
       </Button>
 
       <div className="ml-3">
