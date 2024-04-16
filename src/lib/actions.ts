@@ -19,7 +19,7 @@ type MessageType = {
   message: string;
 };
 
-export async function authenticate(data: any) {
+export async function authenticate(data: { email: string; password: string }) {
   console.log("data", data);
   try {
     await signIn("credentials", {
@@ -48,7 +48,7 @@ export async function reloadData() {
   revalidatePath("sinnlos?");
 }
 
-export async function createUser(data) {
+export async function createUser(data: UserData) {
   console.log("CREATE USER", data);
 
   const { name, surname, image, email, password } = data;
@@ -91,7 +91,11 @@ export async function createPost(roomId: string, data: FormData) {
   //return { success: true };
 }
 
-export async function createRoom(data) {
+export async function createRoom(data: {
+  name: string;
+  description: string;
+  image: string;
+}) {
   console.log("CREATE ROOM", data);
 
   const { name, description, image } = data;
@@ -111,7 +115,7 @@ export async function createRoom(data) {
   //return { success: true };
 }
 
-export async function deleteRoom(data) {
+export async function deleteRoom(data: { id: number }) {
   console.log("Delete Room", data);
 
   const { id } = data;
