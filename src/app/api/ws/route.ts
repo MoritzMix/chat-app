@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import io from "socket.io-client";
 const socket = io("http://localhost:3000");
 
-export async function POST(req, res) {
+export async function POST() {
   try {
     // do something you need to do in the backend
     // (like database operations, etc.)

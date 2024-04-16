@@ -20,6 +20,10 @@ app.prepare().then(async () => {
       console.log("Recieved from API ::", data);
       io.emit("message2", data);
     });
+
+    socket.on("disconnect", (reason) => {
+      console.log("Client disconnected", reason);
+    });
   });
 
   server.all("*", (req, res) => {
