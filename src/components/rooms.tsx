@@ -13,7 +13,7 @@ export default async function RoomList() {
   });
 
   return (
-    <ul className="divide-y divide-gray-200 pt-6">
+    <ul className="divide-y divide-chat-purple-lightest pt-6">
       {rooms.map((room) => (
         <RoomEntry key={room.id} {...room} />
       ))}

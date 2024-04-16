@@ -65,9 +65,7 @@ export function CreateRoomForm({
         <DialogContent className="bg-chat-purple-light">
           <DialogHeader>
             <DialogTitle>Create new room</DialogTitle>
-            <DialogDescription>
-              <CreateRoomForm createRoom={createRoom} />
-
+            <DialogDescription asChild>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}

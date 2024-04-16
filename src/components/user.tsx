@@ -12,7 +12,7 @@ export default async function LogOutButton() {
       </p>
       <form className="ml-auto" action={logOut}>
         <Button
-          className="bg-chat-blue-dark text-chat-blue-light ml-auto"
+          className="bg-chat-purple-lightest text-chat-purple-dark ml-auto"
           type="submit"
         >
           Sign Out

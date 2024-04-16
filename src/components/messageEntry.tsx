@@ -21,14 +21,14 @@ const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
 
   return (
     <Card
-      className={`my-6 bg-slate-100 snap-center w-[400px] last:animate-fade-down last:animate-once last:animate-duration-[400ms] ${currentUserStyle}`}
+      className={`my-6 snap-center w-[400px] shadow-md last:animate-fade-down last:animate-once last:animate-duration-[400ms] ${currentUserStyle}`}
     >
       <CardHeader className="flex-row flex-nowrap item-center">
         <Avatar className="mr-2 h-7 w-7">
           <AvatarImage src={message.user.image || ""} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <p className="mt-0">
+        <p className="">
           {message.user.name} {message.user.surname}
         </p>
         <p className="text-sm text-muted-foreground ml-auto">
@@ -37,7 +37,7 @@ const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
       </CardHeader>
       <CardContent>
         <div className="space-y-1">
-          <p className="text-sm font-medium">{message.content}</p>
+          <p className="text-sm leading-6">{message.content}</p>
         </div>
       </CardContent>
     </Card>

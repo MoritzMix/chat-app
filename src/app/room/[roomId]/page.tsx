@@ -2,6 +2,7 @@
 
 import MessageSubmit from "@/components/messageSubmit";
 import MessageEntry from "@/components/messageEntry";
+import { Separator } from "@/components/ui/separator";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -28,14 +29,18 @@ export default async function ChatList({
     include: {
       user: true,
     },
+    orderBy: {
+      timestamp: "asc",
+    },
   });
 
   const currentUser = await auth();
   const currentUserId = Number(currentUser?.user?.id);
 
   return (
-    <div className="h-full">
+    <div className="h-full bg-white">
       <p className="pl-6">{room?.name}</p>
+      <Separator />
       <ScrollArea
         style={{ height: "calc(100vh - 200px)" }}
         className="p-6 snap-y"

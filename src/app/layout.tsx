@@ -19,9 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn("bg-background font-sans antialiased", inter.variable)}
-      >
+      <body className={cn(" bg-gray-50 font-sans antialiased", inter.variable)}>
         <main className="h-screen">{children}</main>
         <WsSubscribe />
       </body>

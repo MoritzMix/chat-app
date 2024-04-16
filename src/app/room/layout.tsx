@@ -12,13 +12,13 @@ export default function Layout({
   return (
     <div className="h-full">
       <Header />
-      <div className="h-full w-full p-12 pt-[72px] flex">
+      <div className="h-full w-full px-12 pt-[72px] flex">
         <div className="w-1/3">
           <Rooms />
-          <Separator />
+          <Separator className=" bg-chat-purple-lightest" />
           <CreateRoomForm createRoom={createRoom} />
         </div>
-        <div className="w-2/3">{children}</div>
+        <div className="w-2/3 shadow-md">{children}</div>
       </div>
     </div>
   );
