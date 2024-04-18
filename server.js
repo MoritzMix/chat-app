@@ -8,7 +8,7 @@ const io = new Server(3001, {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log("a user connected", socket.id);
 
   socket.on("disconnect", (reason) => {
     console.log("user disconnected", reason);

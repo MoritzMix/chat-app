@@ -13,13 +13,7 @@ import { UserData } from "./interfaces";
 // Define the URL where your Socket.IO server is running
 const socket = io("http://localhost:3001");
 
-// Define the type for the message
-type MessageType = {
-  message: string;
-};
-
 export async function authenticate(data: { email: string; password: string }) {
-  console.log("data", data);
   try {
     await signIn("credentials", {
       email: data.email,
@@ -69,6 +63,27 @@ export async function createUser(data: UserData) {
   } catch (error) {
     console.error("Error creating user:", error);
   }
+}
+
+export async function updateUser(data) {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        name: data.name,
+        surname: data.surname,
+        image: data.image,
+        email: data.email,
+      },
+    });
+    console.log("User updated successfully:", updatedUser);
+  } catch (error) {
+    console.error("Error updating user:", error);
+  }
+  //then
+  sendMessageToStream("1");
 }
 
 //ToDo: Change to other format
