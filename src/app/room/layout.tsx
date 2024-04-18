@@ -12,7 +12,7 @@ export default function Layout({
   return (
     <div className="h-full">
       <Header />
-      <div className="h-full w-full px-12 pt-[72px] flex">
+      <div className="h-full w-full pt-[72px] flex">
         <div className="w-1/3">
           <Rooms />
           <Separator className=" bg-chat-purple-lightest" />

@@ -11,10 +11,7 @@ export default async function LogOutButton() {
         Welcome, {data?.user?.name}
       </p>
       <form className="ml-auto" action={logOut}>
-        <Button
-          className="bg-chat-purple-lightest text-chat-purple-dark ml-auto"
-          type="submit"
-        >
+        <Button variant={"secondary"} type="submit">
           Sign Out
         </Button>
       </form>

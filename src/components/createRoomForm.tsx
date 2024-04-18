@@ -55,7 +55,7 @@ export function CreateRoomForm({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="pt-6 pr-3">
+    <div className="p-6">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="w-full">

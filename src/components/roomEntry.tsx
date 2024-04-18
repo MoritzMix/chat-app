@@ -1,7 +1,7 @@
 "use client";
 
 import { Room } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { deleteRoom } from "@/lib/actions";
@@ -15,8 +15,8 @@ interface RoomWithCount extends Room {
 
 export default function RoomEntry({
   id,
-  name,
   description,
+  name,
   image,
   _count,
 }: RoomWithCount) {
@@ -27,10 +27,18 @@ export default function RoomEntry({
     deleteRoom({ id });
   }
 
+  const { roomId } = useParams();
+  const currentRoomStyle =
+    roomId === String(id) ? "bg-chat-purple-lightest" : "";
+
+  function updateRoomHandler() {
+    router.push(`/room/${id}`);
+  }
+
   return (
     <li
-      onClick={() => router.push(`/room/${id}`)}
-      className="py-4 w-full flex relative group"
+      onClick={updateRoomHandler}
+      className={`py-4 pl-6 w-full flex relative group cursor-pointer transition-colors ${currentRoomStyle}`}
     >
       <Image
         width={10}
@@ -39,16 +47,14 @@ export default function RoomEntry({
         src={image || ""}
         alt={name}
       />
-
       <Button
         onClick={deleteRoomHandler}
         type="submit"
         size="icon"
-        className="absolute rounded-full h-3 w-3 p-2 top-3 left-0 group-hover:visible invisible"
+        className="absolute rounded-full h-3 w-3 p-2 top-4 left-4 group-hover:visible invisible"
       >
         <CircleX className="text-white" />
       </Button>
-
       <div className="ml-3">
         <p className="text-sm font-medium text-gray-900">{name}</p>
         <p className="text-sm text-gray-500">{description}</p>
