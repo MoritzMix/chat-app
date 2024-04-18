@@ -50,6 +50,7 @@ export function CreateRoomForm({
 
   function onSubmit() {
     createRoom(form.getValues());
+    setOpen(false);
   }
 
   const [open, setOpen] = useState(false);

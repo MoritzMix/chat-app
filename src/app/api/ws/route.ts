@@ -8,8 +8,6 @@ export async function POST() {
     // do something you need to do in the backend
     // (like database operations, etc.)
 
-    socket.emit("message1", "Sync Process Completed");
-
     return NextResponse.json({ data: "Success" }, { status: 200 });
   } catch (error) {
     console.error("Error:", error);

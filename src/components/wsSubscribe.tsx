@@ -12,6 +12,7 @@ export default function WsSubscribe() {
     const handleSocketMessage = (data) => {
       console.log("Received from SERVER ::", data);
       // Execute any command
+      //Dont refresh everything
       router.refresh();
     };
 
