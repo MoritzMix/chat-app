@@ -24,3 +24,8 @@ export interface MessageWithData extends MessageWithUser {
   message: MessageWithUser;
   isCurrentUser: boolean;
 }
+
+export interface RoomEntryProps {
+  className: string;
+  roomId: string;
+}

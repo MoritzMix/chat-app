@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import io from "socket.io-client";
-const socket = io("http://localhost:3000");
+const socket = io("http://localhost:3001");
 
 export default function WsSubscribe() {
   const router = useRouter();
@@ -16,12 +16,12 @@ export default function WsSubscribe() {
       router.refresh();
     };
 
-    socket.on("message2", handleSocketMessage);
+    socket.on("message", handleSocketMessage);
 
     return () => {
-      socket.off("message2", handleSocketMessage); // Clean up the subscription
+      socket.off("message", handleSocketMessage); // Clean up the subscription
     };
-  }, [socket, router]);
+  }, [socket]);
 
   return null;
 }
