@@ -58,12 +58,11 @@ export function UpdateUserForm({
     mode: "onChange",
   });
 
-  console.log(userData);
+  console.log("updateUserForm");
 
   function onSubmit() {
     const userWithId = { ...form.getValues(), id: userData?.id };
     updateUser(userWithId);
-    //Need id
     setOpen(false);
   }
 

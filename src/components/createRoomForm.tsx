@@ -53,6 +53,8 @@ export function CreateRoomForm({
     setOpen(false);
   }
 
+  console.log("CreateRoomForm");
+
   const [open, setOpen] = useState(false);
 
   return (

@@ -11,7 +11,7 @@ export default function WsSubscribe() {
   useEffect(() => {
     const handleSocketMessage = (data) => {
       console.log("Received from SERVER ::", data);
-      // Execute any command
+
       //Dont refresh everything
       router.refresh();
     };
@@ -19,9 +19,10 @@ export default function WsSubscribe() {
     socket.on("message", handleSocketMessage);
 
     return () => {
+      console.log("Unsubscribing from socket.io");
       socket.off("message", handleSocketMessage); // Clean up the subscription
     };
-  }, [socket]);
+  }, [socket, router]);
 
   return null;
 }

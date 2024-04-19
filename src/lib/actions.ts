@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 
 import io from "socket.io-client";
 
-import bcrypt from "bcrypt";
+//import bcrypt from "bcrypt";
 import { UserData } from "./interfaces";
 
 // Define the URL where your Socket.IO server is running
@@ -82,11 +82,9 @@ export async function updateUser(data) {
   } catch (error) {
     console.error("Error updating user:", error);
   }
-  //then
-  sendMessageToStream("1");
+  sendMessageToStream("User updated");
 }
 
-//ToDo: Change to other format
 export async function createPost(roomId: string, data: FormData) {
   const content = data.get("message") as string;
 
@@ -99,10 +97,7 @@ export async function createPost(roomId: string, data: FormData) {
       content,
     },
   });
-  //then
-  sendMessageToStream(content);
-
-  //return { success: true };
+  sendMessageToStream("Post created");
 }
 
 export async function createRoom(data: {
@@ -114,19 +109,19 @@ export async function createRoom(data: {
 
   const { name, description, image } = data;
 
-  const newRoom = await prisma.room.create({
-    data: {
-      name,
-      description,
-      image,
-    },
-  });
-
-  console.log("Room created successfully:", newRoom);
-  //sendMessageToStream shouldnt take any data.
-  sendMessageToStream(name);
-
-  //return { success: true };
+  try {
+    const newRoom = await prisma.room.create({
+      data: {
+        name,
+        description,
+        image,
+      },
+    });
+    console.log("Room successfully created:", newRoom);
+  } catch (error) {
+    console.error("Error deleting room:", error);
+  }
+  sendMessageToStream("Room created");
 }
 
 export async function deleteRoom(data: { id: number }) {
@@ -144,15 +139,12 @@ export async function deleteRoom(data: { id: number }) {
   } catch (error) {
     console.error("Error deleting room:", error);
   }
-  //sendMessageToStream shouldnt take any data.
-  sendMessageToStream("1");
+  sendMessageToStream("Room deleted");
 }
 
 const sendMessageToStream = async (message: string): Promise<void> => {
   try {
     console.log("sending update", message);
-
-    // If the action was successful, emit the message to the stream
     socket.emit("message", message);
   } catch (error) {
     console.error("Error sending message to stream:", error);
