@@ -2,7 +2,7 @@ import Rooms from "@/components/rooms";
 import { CreateRoomForm } from "@/components/createRoomForm";
 import { createRoom } from "@/lib/actions";
 import { Separator } from "@/components/ui/separator";
-import Header from "@/components/header";
+import { Header } from "@/components/header";
 
 export default function Layout({
   children,

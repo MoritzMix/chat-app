@@ -28,9 +28,7 @@ const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
           <AvatarImage src={message.user.image || ""} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <p className="">
-          {message.user.name} {message.user.surname}
-        </p>
+        <p className="">{message.user.name}</p>
         <p className="text-sm text-muted-foreground ml-auto">
           {message.timestamp.toLocaleTimeString("de")}
         </p>

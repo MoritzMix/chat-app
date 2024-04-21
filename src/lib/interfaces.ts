@@ -7,14 +7,12 @@ export interface MessageWithUser extends Message {
   user: {
     id: number;
     name: string;
-    surname: string;
     image: string | null;
   };
 }
 
 export interface UserData {
   name: string;
-  surname: string;
   image: string | null;
   email: string;
   password: string;
@@ -28,4 +26,12 @@ export interface MessageWithData extends MessageWithUser {
 export interface RoomEntryProps {
   className: string;
   roomId: string;
+}
+
+export interface IUserContext {
+  id: number;
+  name: string;
+  image: string | null;
+  email: string;
+  setUserData: (userData: Partial<IUserContext>) => void;
 }

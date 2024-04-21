@@ -7,19 +7,7 @@ import Image from "next/image";
 import { deleteRoom } from "@/lib/actions";
 import { CircleX, X } from "lucide-react";
 
-interface RoomWithCount extends Room {
-  _count: {
-    Message: number;
-  };
-}
-
-export default function RoomEntry({
-  id,
-  description,
-  name,
-  image,
-  _count,
-}: RoomWithCount) {
+export default function RoomEntry({ id, description, name, image }: Room) {
   const router = useRouter();
 
   function deleteRoomHandler(e: React.MouseEvent<HTMLButtonElement>) {
@@ -59,9 +47,6 @@ export default function RoomEntry({
         <p className="text-sm font-medium text-gray-900">{name}</p>
         <p className="text-sm text-gray-500">{description}</p>
       </div>
-      <p className="text-xs text-muted-foreground ml-auto mr-3">
-        {_count.Message} Messages
-      </p>
     </li>
   );
 }

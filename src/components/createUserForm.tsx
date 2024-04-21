@@ -20,9 +20,6 @@ const userFormSchema = z.object({
   name: z.string({
     required_error: "Please select a name to display.",
   }),
-  surname: z.string({
-    required_error: "Please select a surname to display.",
-  }),
   image: z.string().optional(),
   email: z
     .string({
@@ -60,20 +57,6 @@ export function CreateUserForm({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Vorname</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="surname"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nachname</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>

@@ -37,21 +37,16 @@ export async function logOut() {
   await signOut();
 }
 
-export async function reloadData() {
-  revalidatePath("sinnlos?");
-}
-
 export async function createUser(data: UserData) {
   console.log("CREATE USER", data);
 
-  const { name, surname, image, email, password } = data;
+  const { name, image, email, password } = data;
   const pwhash = password; //await bcrypt.hash(password, 10);
 
   try {
     const newUser = await prisma.user.create({
       data: {
         name,
-        surname,
         image,
         email,
         pwhash,
@@ -66,14 +61,14 @@ export async function createUser(data: UserData) {
 }
 
 export async function updateUser(data) {
+  console.log("UPDATE USER", data);
   try {
     const updatedUser = await prisma.user.update({
       where: {
-        id: data.id,
+        id: Number(data.id),
       },
       data: {
         name: data.name,
-        surname: data.surname,
         image: data.image,
         email: data.email,
       },
@@ -97,7 +92,7 @@ export async function createPost(roomId: string, data: FormData) {
       content,
     },
   });
-  sendMessageToStream("Post created");
+  sendMessageToStream(roomId);
 }
 
 export async function createRoom(data: {
@@ -142,10 +137,10 @@ export async function deleteRoom(data: { id: number }) {
   sendMessageToStream("Room deleted");
 }
 
-const sendMessageToStream = async (message: string): Promise<void> => {
+const sendMessageToStream = async (data: any): Promise<void> => {
   try {
-    console.log("sending update", message);
-    socket.emit("message", message);
+    console.log("sending update");
+    socket.emit("message", data);
   } catch (error) {
     console.error("Error sending message to stream:", error);
   }

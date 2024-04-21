@@ -1,15 +1,13 @@
 "use server";
 
 import MessageSubmit from "@/components/messageSubmit";
-import MessageEntry from "@/components/messageEntry";
 import { Separator } from "@/components/ui/separator";
-
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 import { auth } from "@/auth";
+import MessageList from "@/components/messages";
 
 export default async function ChatList({
   params,
@@ -41,18 +39,11 @@ export default async function ChatList({
     <div className="h-full bg-white">
       <p className="pl-6">{room?.name}</p>
       <Separator />
-      <ScrollArea
-        style={{ height: "calc(100vh - 200px)" }}
-        className="p-6 snap-y"
-      >
-        {messages.map((message) => (
-          <MessageEntry
-            key={message.id}
-            message={message}
-            isCurrentUser={currentUserId === message?.user?.id}
-          />
-        ))}
-      </ScrollArea>
+      <MessageList
+        messages={messages}
+        currentUserId={currentUserId}
+        roomId={room?.id}
+      />
       <MessageSubmit
         className="pl-6 ml-auto w-[400px]"
         roomId={roomId}

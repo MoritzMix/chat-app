@@ -29,9 +29,7 @@ const userFormSchema = z.object({
   name: z.string({
     required_error: "Please select a name to display.",
   }),
-  surname: z.string({
-    required_error: "Please select a surname to display.",
-  }),
+
   email: z.string().email(),
   image: z.string().optional(),
 });
@@ -43,25 +41,21 @@ export function UpdateUserForm({
   userData,
 }: {
   updateUser: (data: UpdateUserFormValues) => void;
-  userData;
 }) {
   const defaultValues: Partial<UpdateUserFormValues> = {
     name: userData?.name,
-    surname: userData?.surname,
-    image: userData?.image,
+    image: userData?.image || undefined,
     email: userData?.email,
   };
 
   const form = useForm<UpdateUserFormValues>({
     resolver: zodResolver(userFormSchema),
     defaultValues,
-    mode: "onChange",
+    mode: "onSubmit",
   });
 
-  console.log("updateUserForm");
-
-  function onSubmit() {
-    const userWithId = { ...form.getValues(), id: userData?.id };
+  function onSubmit(data: UpdateUserFormValues) {
+    const userWithId = { ...data, id: userData?.id };
     updateUser(userWithId);
     setOpen(false);
   }
@@ -90,20 +84,6 @@ export function UpdateUserForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="surname"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Surname</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>

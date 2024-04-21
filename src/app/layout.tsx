@@ -3,8 +3,6 @@ import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
-import WsSubscribe from "@/components/wsSubscribe";
-
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
@@ -21,7 +19,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(" bg-gray-50 font-sans antialiased", inter.variable)}>
         <main className="h-screen">{children}</main>
-        <WsSubscribe />
       </body>
     </html>
   );

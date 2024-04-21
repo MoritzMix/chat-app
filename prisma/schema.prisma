@@ -18,7 +18,6 @@ model Room {
 model User {
   id      Int       @id @default(autoincrement())
   name    String
-  surname String
   image   String?
   email   String    @unique
   pwhash  String

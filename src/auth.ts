@@ -3,21 +3,6 @@ import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
-import { User } from "@prisma/client";
-
-async function getUser(email: string): Promise<User | null> {
-  try {
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-    return user;
-  } catch (error) {
-    console.error("Failed to fetch user:", error);
-    throw new Error("Failed to fetch user.");
-  }
-}
 
 // Your own logic for dealing with plaintext password strings; be careful!
 
@@ -38,24 +23,40 @@ export const authConfig = {
       return true;
     },
     async session({ session, token }) {
-      session.user.id = token.sub;
+      session.user = {
+        id: token.sub ?? "",
+        email: token.email ?? "",
+        name: token.name ?? "",
+        image: token.picture ?? "",
+      };
       return session; // The return type will match the one returned in `useSession()`
     },
   },
   providers: [
     Credentials({
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
 
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-          const user = await getUser(email);
+          const user = await prisma.user.findUnique({
+            where: { email },
+          });
+
           if (!user) return null;
           const passwordsMatch = password == user.pwhash; //await bcrypt.compare(password, user.pwhash);
 
-          if (passwordsMatch) return user;
+          if (passwordsMatch) {
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              image: user.image,
+            };
+          }
+          return null;
         }
         return null;
       },
