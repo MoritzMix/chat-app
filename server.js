@@ -22,18 +22,25 @@ io.on("connection", (socket) => {
     console.log(`User left room: ${roomId} (${typeof roomId})`);
   });
 
+  // Sending a message to a room
   socket.on("message", (roomId) => {
     roomId = roomId.toString();
     io.to(roomId).emit("message", roomId);
     console.log(`Message sent to room ${roomId} (${typeof roomId})`);
   });
 
-  /*
-  socket.on("message", (msg) => {
-    console.log("message: " + msg);
-    io.emit("message", msg);
+  // Sending a message to all users
+  socket.on("userUpdate", (msg) => {
+    console.log("userUpdate: " + msg);
+    io.emit("userUpdate", msg);
   });
-*/
+
+  // Sending a message to all users
+  socket.on("roomUpdate", (msg) => {
+    console.log("roomUpdate: " + msg);
+    io.emit("roomUpdate", msg);
+  });
+
   socket.on("disconnect", (reason) => {
     console.log("user disconnected", reason);
   });

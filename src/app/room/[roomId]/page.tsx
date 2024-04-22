@@ -21,16 +21,6 @@ export default async function ChatList({
   });
 
   //probably should exclude pwhash and email
-  //ToDo order by timestamp
-  const messages = await prisma.message.findMany({
-    where: { room_id: Number(roomId) },
-    include: {
-      user: true,
-    },
-    orderBy: {
-      timestamp: "asc",
-    },
-  });
 
   const currentUser = await auth();
   const currentUserId = Number(currentUser?.user?.id);
@@ -39,11 +29,7 @@ export default async function ChatList({
     <div className="h-full bg-white">
       <p className="pl-6">{room?.name}</p>
       <Separator />
-      <MessageList
-        messages={messages}
-        currentUserId={currentUserId}
-        roomId={room?.id}
-      />
+      <MessageList currentUserId={currentUserId} roomId={room?.id} />
       <MessageSubmit
         className="pl-6 ml-auto w-[400px]"
         roomId={roomId}

@@ -2,6 +2,7 @@ import { logOut, updateUser } from "@/lib/actions";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { UpdateUserForm } from "@/components/updateUserForm";
+import { WSHandler } from "@/components/wsHandler";
 
 async function LogOutButton() {
   return (
@@ -25,6 +26,7 @@ export async function Header() {
       </p>
       <LogOutButton />
       <UpdateUserForm updateUser={updateUser} userData={data?.user} />
+      <WSHandler />
     </div>
   );
 }

@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 
 import { FC } from "react";
+import { convertToLocalTime } from "@/lib/utils";
 
 const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
   const currentUserStyle = isCurrentUser
@@ -30,7 +31,7 @@ const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
         </Avatar>
         <p className="">{message.user.name}</p>
         <p className="text-sm text-muted-foreground ml-auto">
-          {message.timestamp.toLocaleTimeString("de")}
+          {convertToLocalTime(message.timestamp)}
         </p>
       </CardHeader>
       <CardContent>

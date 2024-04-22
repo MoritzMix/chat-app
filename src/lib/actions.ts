@@ -77,7 +77,7 @@ export async function updateUser(data) {
   } catch (error) {
     console.error("Error updating user:", error);
   }
-  sendMessageToStream("User updated");
+  sendMessageToStream("userUpdate", "User updated");
 }
 
 export async function createPost(roomId: string, data: FormData) {
@@ -92,7 +92,7 @@ export async function createPost(roomId: string, data: FormData) {
       content,
     },
   });
-  sendMessageToStream(roomId);
+  sendMessageToStream("message", roomId);
 }
 
 export async function createRoom(data: {
@@ -116,7 +116,7 @@ export async function createRoom(data: {
   } catch (error) {
     console.error("Error deleting room:", error);
   }
-  sendMessageToStream("Room created");
+  sendMessageToStream("roomUpdate", "Room created");
 }
 
 export async function deleteRoom(data: { id: number }) {
@@ -134,13 +134,13 @@ export async function deleteRoom(data: { id: number }) {
   } catch (error) {
     console.error("Error deleting room:", error);
   }
-  sendMessageToStream("Room deleted");
+  sendMessageToStream("roomUpdate", "Room deleted");
 }
 
-const sendMessageToStream = async (data: any): Promise<void> => {
+const sendMessageToStream = async (type: string, data: any): Promise<void> => {
   try {
     console.log("sending update");
-    socket.emit("message", data);
+    socket.emit(type, data);
   } catch (error) {
     console.error("Error sending message to stream:", error);
   }
