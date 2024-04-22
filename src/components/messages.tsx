@@ -1,11 +1,8 @@
 "use client";
 
 import MessageEntry from "@/components/messageEntry";
-
 import { ScrollArea } from "@/components/ui/scroll-area";
-
 import { useEffect } from "react";
-
 import io from "socket.io-client";
 import useSWR from "swr";
 import { Skeleton } from "./ui/skeleton";

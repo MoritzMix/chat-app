@@ -16,20 +16,26 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const userFormSchema = z.object({
-  name: z
-    .string({
-      required_error: "Please select a name to display.",
-    })
-    .min(1),
-  image: z.string().optional(),
-  email: z
-    .string({
-      required_error: "Please select an email to display.",
-    })
-    .email(),
-  password: z.string().min(1),
-});
+const userFormSchema = z
+  .object({
+    name: z
+      .string({
+        required_error: "Please select a name to display.",
+      })
+      .min(1),
+    image: z.string().optional(),
+    email: z
+      .string({
+        required_error: "Please select an email to display.",
+      })
+      .email(),
+    password: z.string().min(1),
+    confirmPassword: z.string().min(1),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
 type ProfileFormValues = z.infer<typeof userFormSchema>;
 
@@ -38,6 +44,7 @@ const defaultValues: Partial<ProfileFormValues> = {
   image: "",
   email: "",
   password: "",
+  confirmPassword: "",
 };
 
 export function CreateUserForm({
@@ -53,6 +60,7 @@ export function CreateUserForm({
 
   function onSubmit() {
     createUser(form.getValues());
+    form.reset();
   }
 
   return (
@@ -107,7 +115,21 @@ export function CreateUserForm({
             <FormItem>
               <FormLabel>Passwort</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} type="password" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Passwort wiederholen</FormLabel>
+              <FormControl>
+                <Input {...field} type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>

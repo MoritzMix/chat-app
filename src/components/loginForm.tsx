@@ -67,7 +67,7 @@ export function LoginForm({ authenticate }: { authenticate: Function }) {
             <FormItem>
               <FormLabel>Passwort</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>
