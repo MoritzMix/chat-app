@@ -10,11 +10,12 @@ import { useRouter } from "next/navigation";
 
 import io from "socket.io-client";
 import useSWR from "swr";
-const socket = io("http://localhost:3001");
+
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const MessageList = ({ currentUserId, roomId }) => {
   const router = useRouter();
+  const socket = io("http://localhost:3001");
 
   const { data, error, isLoading, mutate } = useSWR(
     `/api/messages/${roomId}`,
@@ -40,6 +41,7 @@ const MessageList = ({ currentUserId, roomId }) => {
   useEffect(() => {
     handleJoinRoom();
     socket.on("message", handleSocketMessage);
+    socket.on("userUpdate", handleSocketMessage);
 
     // Clean up socket listeners when component unmounts
     return () => {
