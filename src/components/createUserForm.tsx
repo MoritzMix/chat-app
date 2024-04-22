@@ -50,7 +50,7 @@ export function CreateUserForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -107,7 +107,9 @@ export function CreateUserForm({
           )}
         />
 
-        <Button type="submit">Create</Button>
+        <Button className="ml-auto" type="submit">
+          Create
+        </Button>
       </form>
     </Form>
   );

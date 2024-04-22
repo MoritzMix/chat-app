@@ -63,7 +63,7 @@ export function CreateRoomForm({
             <CirclePlus className="mr-2 h-4 w-4" /> Create new
           </Button>
         </DialogTrigger>
-        <DialogContent className="bg-chat-purple-light">
+        <DialogContent className="">
           <DialogHeader>
             <DialogTitle>Create new room</DialogTitle>
             <DialogDescription asChild>

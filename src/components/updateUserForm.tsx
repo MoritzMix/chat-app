@@ -69,7 +69,7 @@ export function UpdateUserForm({
           <Settings className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-chat-purple-light">
+      <DialogContent className="">
         <DialogHeader>
           <DialogTitle>Update User Profile</DialogTitle>
           <DialogDescription asChild>

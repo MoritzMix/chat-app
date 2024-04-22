@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 import io from "socket.io-client";
 import useSWR from "swr";
+import { Skeleton } from "./ui/skeleton";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -52,7 +53,7 @@ const MessageList = ({ currentUserId, roomId }) => {
 
   function getMessages() {
     if (isLoading) {
-      return <p>Loading...</p>;
+      return SkeletonList();
     } else {
       return messages.map((message) => (
         <MessageEntry
@@ -75,3 +76,27 @@ const MessageList = ({ currentUserId, roomId }) => {
 };
 
 export default MessageList;
+
+function SkeletonList() {
+  return (
+    <>
+      <SkeletonEntry />
+      <SkeletonEntry />
+      <SkeletonEntry />
+      <SkeletonEntry />
+      <SkeletonEntry />
+    </>
+  );
+}
+
+function SkeletonEntry(): JSX.Element {
+  return (
+    <div className="flex items-center space-x-4 mb-12">
+      <Skeleton className="h-12 w-12 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-4 w-[200px]" />
+      </div>
+    </div>
+  );
+}
