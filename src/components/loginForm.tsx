@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFormState } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -22,12 +22,15 @@ const userFormSchema = z.object({
       required_error: "Please select an email to display.",
     })
     .email(),
-  password: z.string(),
+  password: z.string().min(1),
 });
 
 type ProfileFormValues = z.infer<typeof userFormSchema>;
 
-const defaultValues: Partial<ProfileFormValues> = {};
+const defaultValues: Partial<ProfileFormValues> = {
+  email: "",
+  password: "",
+};
 
 export function LoginForm({ authenticate }: { authenticate: Function }) {
   const form = useForm<ProfileFormValues>({

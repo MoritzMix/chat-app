@@ -17,21 +17,28 @@ import {
 import { Input } from "@/components/ui/input";
 
 const userFormSchema = z.object({
-  name: z.string({
-    required_error: "Please select a name to display.",
-  }),
+  name: z
+    .string({
+      required_error: "Please select a name to display.",
+    })
+    .min(1),
   image: z.string().optional(),
   email: z
     .string({
       required_error: "Please select an email to display.",
     })
     .email(),
-  password: z.string(),
+  password: z.string().min(1),
 });
 
 type ProfileFormValues = z.infer<typeof userFormSchema>;
 
-const defaultValues: Partial<ProfileFormValues> = {};
+const defaultValues: Partial<ProfileFormValues> = {
+  name: "",
+  image: "",
+  email: "",
+  password: "",
+};
 
 export function CreateUserForm({
   createUser,

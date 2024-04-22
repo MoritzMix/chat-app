@@ -81,7 +81,9 @@ export async function updateUser(data) {
 }
 
 export async function createPost(roomId: string, data: FormData) {
-  const content = data.get("message") as string;
+  console.log("CREATE POST", roomId, data);
+
+  const content = data.message;
 
   const session = await auth();
   console.log("CREATE POST", roomId, session?.user?.id, content);

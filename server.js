@@ -10,6 +10,7 @@ const io = new Server(3001, {
 io.on("connection", (socket) => {
   // Joining a room
   socket.on("joinRoom", (roomId) => {
+    if (roomId === null || roomId === undefined) return;
     roomId = roomId.toString();
     socket.join(roomId);
     console.log(`User joined room: ${roomId} (${typeof roomId})`);
@@ -17,6 +18,7 @@ io.on("connection", (socket) => {
 
   // Leaving a room
   socket.on("leaveRoom", (roomId) => {
+    if (roomId === null || roomId === undefined) return;
     roomId = roomId.toString();
     socket.leave(roomId);
     console.log(`User left room: ${roomId} (${typeof roomId})`);
@@ -24,6 +26,7 @@ io.on("connection", (socket) => {
 
   // Sending a message to a room
   socket.on("message", (roomId) => {
+    if (roomId === null || roomId === undefined) return;
     roomId = roomId.toString();
     io.to(roomId).emit("message", roomId);
     console.log(`Message sent to room ${roomId} (${typeof roomId})`);

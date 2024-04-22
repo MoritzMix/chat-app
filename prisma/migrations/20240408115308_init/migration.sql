@@ -10,7 +10,6 @@ CREATE TABLE "Room" (
 CREATE TABLE "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
-    "surname" TEXT NOT NULL,
     "image" TEXT,
     "email" TEXT NOT NULL,
     "pwhash" TEXT NOT NULL

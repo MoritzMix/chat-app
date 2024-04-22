@@ -4,18 +4,22 @@ import MessageEntry from "@/components/messageEntry";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-import { FC } from "react";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 import io from "socket.io-client";
 import useSWR from "swr";
 import { Skeleton } from "./ui/skeleton";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (...args: unknown[]) =>
+  fetch(...(args as [RequestInfo, RequestInit?])).then((res) => res.json());
 
-const MessageList = ({ currentUserId, roomId }) => {
-  const router = useRouter();
+const MessageList = ({
+  currentUserId,
+  roomId,
+}: {
+  currentUserId: string;
+  roomId: string;
+}) => {
   const socket = io("http://localhost:3001");
 
   const { data, error, isLoading, mutate } = useSWR(
@@ -80,6 +84,8 @@ export default MessageList;
 function SkeletonList() {
   return (
     <>
+      <SkeletonEntry />
+      <SkeletonEntry />
       <SkeletonEntry />
       <SkeletonEntry />
       <SkeletonEntry />

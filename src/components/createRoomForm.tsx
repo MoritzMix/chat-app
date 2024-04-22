@@ -26,16 +26,18 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 const roomFormSchema = z.object({
-  name: z.string({
-    required_error: "Please select a name to display.",
-  }),
+  name: z.string().min(1),
   description: z.string().optional(),
   image: z.string().optional(),
 });
 
 type RoomFormValues = z.infer<typeof roomFormSchema>;
 
-const defaultValues: Partial<RoomFormValues> = {};
+const defaultValues: Partial<RoomFormValues> = {
+  name: "",
+  description: "",
+  image: "",
+};
 
 export function CreateRoomForm({
   createRoom,
@@ -50,6 +52,7 @@ export function CreateRoomForm({
 
   function onSubmit() {
     createRoom(form.getValues());
+    form.reset();
     setOpen(false);
   }
 
