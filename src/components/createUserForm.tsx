@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,27 +16,40 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { isDesktop } from "@/lib/utils";
 
-const userFormSchema = z
-  .object({
-    name: z
-      .string({
-        required_error: "Please select a name to display.",
-      })
-      .min(1),
-    image: z.string().optional(),
-    email: z
-      .string({
-        required_error: "Please select an email to display.",
-      })
-      .email(),
-    password: z.string().min(1),
-    confirmPassword: z.string().min(1),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+const userFormSchema = z.object({
+  name: z
+    .string({
+      required_error: "Please select a name to display.",
+    })
+    .min(1),
+  image: z.string().optional(),
+  email: z
+    .string({
+      required_error: "Please select an email to display.",
+    })
+    .email(),
+  password: z.string().min(7),
+});
 
 type ProfileFormValues = z.infer<typeof userFormSchema>;
 
@@ -44,10 +58,53 @@ const defaultValues: Partial<ProfileFormValues> = {
   image: "",
   email: "",
   password: "",
-  confirmPassword: "",
 };
 
 export function CreateUserForm({
+  createUser,
+}: {
+  createUser: (data: ProfileFormValues) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  //const isOnDesktop = isDesktop(window);
+  // If the user is on a desktop, show the dialog
+  if (isDesktop(window)) {
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="outline">Create new user</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Sign Up</DialogTitle>
+            <DialogDescription>Fast and Easy.</DialogDescription>
+          </DialogHeader>
+          <ProfileForm createUser={createUser} />
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  // If the user is on mobile, show the drawer
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>
+        <Button variant="outline">Sign Up</Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader className="text-left">
+          <DrawerTitle>Create User</DrawerTitle>
+          <DrawerDescription>Fast and Easy.</DrawerDescription>
+        </DrawerHeader>
+        <div className="px-4 pb-4">
+          <ProfileForm createUser={createUser} />
+        </div>
+      </DrawerContent>
+    </Drawer>
+  );
+}
+
+function ProfileForm({
   createUser,
 }: {
   createUser: (data: ProfileFormValues) => void;
@@ -59,6 +116,7 @@ export function CreateUserForm({
   });
 
   function onSubmit() {
+    console.log("Here", form.getValues());
     createUser(form.getValues());
     form.reset();
   }
@@ -122,21 +180,7 @@ export function CreateUserForm({
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Passwort wiederholen</FormLabel>
-              <FormControl>
-                <Input {...field} type="password" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button className="ml-auto" type="submit">
+        <Button className="w-full mt-4" type="submit">
           Create
         </Button>
       </form>

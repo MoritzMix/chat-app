@@ -5,12 +5,12 @@ import { Separator } from "@/components/ui/separator";
 
 export default function LoginPage() {
   return (
-    <div className="w-full h-full flex justify-center bg-gray-50">
-      <div className="flex flex-col self-center w-1/2 bg-chat-purple-light shadow-md rounded-lg  px-12 py-6">
-        <p>Log In</p>
+    <div className="w-full h-full flex justify-center md:bg-gray-50 bg-chat-purple-dark">
+      <div className="flex flex-col self-center w-full md:w-1/2 bg-chat-purple-dark md:bg-chat-purple-light md:shadow-md md:rounded-lg px-6 py-3 md:px-12 md:py-6">
+        <p className="">Log In</p>
         <LoginForm authenticate={authenticate} />
-        <Separator className="bg-white my-12"></Separator>
-        <p>Create User</p>
+        <Separator className="bg-white my-6 sm:my-12"></Separator>
+        <p>Sign Up</p>
         <CreateUserForm createUser={createUser} />
       </div>
     </div>
