@@ -20,16 +20,16 @@ async function main() {
 
   // Realistic names and emails
   const usersData = [
-    { name: "John", surname: "Doe", email: "john.doe@example.com" },
-    { name: "Alice", surname: "Smith", email: "alice.smith@example.com" },
-    { name: "Bob", surname: "Johnson", email: "bob.johnson@example.com" },
-    { name: "Emma", surname: "Brown", email: "emma.brown@example.com" },
-    { name: "Michael", surname: "Davis", email: "michael.davis@example.com" },
-    { name: "Sarah", surname: "Miller", email: "sarah.miller@example.com" },
-    { name: "David", surname: "Wilson", email: "david.wilson@example.com" },
-    { name: "Jennifer", surname: "Moore", email: "jennifer.moore@example.com" },
-    { name: "James", surname: "Taylor", email: "james.taylor@example.com" },
-    { name: "Emily", surname: "Anderson", email: "emily.anderson@example.com" },
+    { name: "John", email: "john.doe@example.com" },
+    { name: "Alice", email: "alice.smith@example.com" },
+    { name: "Bob", email: "bob.johnson@example.com" },
+    { name: "Emma", email: "emma.brown@example.com" },
+    { name: "Michael", email: "michael.davis@example.com" },
+    { name: "Sarah", email: "sarah.miller@example.com" },
+    { name: "David", email: "david.wilson@example.com" },
+    { name: "Jennifer", email: "jennifer.moore@example.com" },
+    { name: "James", email: "james.taylor@example.com" },
+    { name: "Emily", email: "emily.anderson@example.com" },
   ];
 
   // Create users
