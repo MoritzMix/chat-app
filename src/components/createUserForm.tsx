@@ -1,10 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useState } from "react";
-
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -66,9 +65,14 @@ export function CreateUserForm({
   createUser: (data: ProfileFormValues) => void;
 }) {
   const [open, setOpen] = useState(false);
-  //const isOnDesktop = isDesktop(window);
+  const [isOnDesktop, setIsOnDesktop] = useState(false);
+
+  useEffect(() => {
+    setIsOnDesktop(isDesktop(window));
+  }, []);
+
   // If the user is on a desktop, show the dialog
-  if (isDesktop(window)) {
+  if (isOnDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>

@@ -15,7 +15,7 @@ export function getScreenSize(window: Window): string {
   return width < 640 ? "sm" : width < 768 ? "md" : width < 1024 ? "lg" : "xl";
 }
 
-export function isDesktop(window: Window): boolean {
+export function isDesktop(window: Window) {
   const width: number = window.innerWidth;
   return width >= 768 ? true : false;
 }

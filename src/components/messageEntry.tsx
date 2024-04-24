@@ -22,7 +22,7 @@ const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
 
   return (
     <Card
-      className={`my-6 snap-center w-[400px] shadow-md last:animate-fade-down last:animate-once last:animate-duration-[400ms] ${currentUserStyle}`}
+      className={`my-6 snap-center md:w-[400px] shadow-md last:animate-fade-down last:animate-once last:animate-duration-[400ms] ${currentUserStyle}`}
     >
       <CardHeader className="flex-row flex-nowrap item-center">
         <Avatar className="mr-2 h-7 w-7">

@@ -1,8 +1,6 @@
 import Rooms from "@/components/rooms";
-import { CreateRoomForm } from "@/components/createRoomForm";
-import { createRoom } from "@/lib/actions";
-import { Separator } from "@/components/ui/separator";
 import { Header } from "@/components/header";
+import { SideBar } from "@/components/sideBar";
 
 export default function Layout({
   children,
@@ -10,15 +8,13 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="h-full">
+    <div className="h-full w-full">
       <Header />
       <div className="h-full w-full pt-[72px] flex">
-        <div className="w-1/3">
+        <SideBar>
           <Rooms />
-          <Separator className=" bg-chat-purple-lightest" />
-          <CreateRoomForm createRoom={createRoom} />
-        </div>
-        <div className="w-2/3 shadow-md">{children}</div>
+        </SideBar>
+        <div className="h-full w-full md:w-2/3 md:shadow-md">{children}</div>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("font-sans antialiased", inter.variable)}>
-        <main className="h-screen">{children}</main>
+        <main className="h-screen w-screen">{children}</main>
       </body>
     </html>
   );

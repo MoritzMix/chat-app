@@ -74,7 +74,9 @@ export function LoginForm({ authenticate }: { authenticate: Function }) {
           )}
         />
 
-        <Button type="submit">Login</Button>
+        <Button className="w-full" type="submit">
+          Login
+        </Button>
       </form>
     </Form>
   );

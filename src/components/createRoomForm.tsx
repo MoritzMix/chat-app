@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { createRoom } from "@/lib/actions";
 
 const roomFormSchema = z.object({
   name: z.string().min(1),
@@ -39,11 +40,7 @@ const defaultValues: Partial<RoomFormValues> = {
   image: "",
 };
 
-export function CreateRoomForm({
-  createRoom,
-}: {
-  createRoom: (data: RoomFormValues) => void;
-}) {
+export function CreateRoomForm() {
   const form = useForm<RoomFormValues>({
     resolver: zodResolver(roomFormSchema),
     defaultValues,

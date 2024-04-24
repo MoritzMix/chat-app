@@ -20,8 +20,8 @@ export async function Header() {
   const data = await auth();
   const username = data?.user?.name;
   return (
-    <div className="flex justify-end bg-chat-purple-dark fixed py-4 px-12 w-full">
-      <p className="font-bold text-2xl text-white leading-10">
+    <div className="flex justify-end bg-chat-purple-dark fixed py-4 px-6 md:px-12 w-full">
+      <p className="font-bold text-xl md:text-2xl text-white leading-10">
         Welcome, {username}
       </p>
       <LogOutButton />
