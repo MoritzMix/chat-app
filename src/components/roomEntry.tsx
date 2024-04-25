@@ -26,7 +26,7 @@ export default function RoomEntry({ id, description, name, image }: Room) {
   return (
     <li
       onClick={updateRoomHandler}
-      className={`py-4 pl-6 w-full flex relative group cursor-pointer transition-colors ${currentRoomStyle}`}
+      className={`py-4 px-4 md:px-6 w-full flex relative group cursor-pointer transition-colors ${currentRoomStyle}`}
     >
       <Image
         width={10}

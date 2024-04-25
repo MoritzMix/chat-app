@@ -76,7 +76,7 @@ export function CreateUserForm({
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Create new user</Button>
+          <Button variant="outline">Sign Up</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
