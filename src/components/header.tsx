@@ -19,13 +19,16 @@ async function LogOutButton() {
 export async function Header() {
   const data = await auth();
   const username = data?.user?.name;
+
   return (
     <div className="flex justify-end bg-chat-purple-dark fixed py-4 px-6 md:px-12 w-full">
       <p className="font-bold text-xl md:text-2xl text-white leading-10">
         Welcome, {username}
       </p>
       <LogOutButton />
-      <UpdateUserForm updateUser={updateUser} userData={data?.user} />
+      {data?.user && (
+        <UpdateUserForm updateUser={updateUser} userData={data?.user} />
+      )}
       <WSHandler />
     </div>
   );

@@ -120,7 +120,6 @@ function ProfileForm({
   });
 
   function onSubmit() {
-    console.log("Here", form.getValues());
     createUser(form.getValues());
     form.reset();
   }

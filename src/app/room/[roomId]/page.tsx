@@ -28,8 +28,9 @@ export default async function ChatList({
   return (
     <div className="h-full bg-white">
       <p className="pl-6">{room?.name}</p>
+
       <Separator />
-      <MessageList currentUserId={currentUserId} roomId={room?.id} />
+      <MessageList currentUserId={currentUserId} roomId={roomId} />
       <MessageSubmit
         className="pl-6 ml-auto w-[400px]"
         roomId={roomId}

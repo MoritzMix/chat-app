@@ -5,9 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function convertToLocalTime(timestamp: string) {
-  const date = new Date(timestamp);
-  return date.toLocaleTimeString();
+export function convertToLocalTime(timestamp: string | Date) {
+  if (typeof timestamp === "string") {
+    timestamp = new Date(timestamp);
+  }
+
+  return timestamp.toLocaleTimeString();
 }
 
 export function getScreenSize(window: Window): string {

@@ -2,8 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { auth, signIn, signOut } from "@/auth";
-import { AuthError } from "next-auth";
-import { revalidatePath } from "next/cache";
+import { AuthError, User } from "next-auth";
 
 import io from "socket.io-client";
 
@@ -60,7 +59,7 @@ export async function createUser(data: UserData) {
   }
 }
 
-export async function updateUser(data) {
+export async function updateUser(data: User) {
   console.log("UPDATE USER", data);
   try {
     const updatedUser = await prisma.user.update({
@@ -68,9 +67,9 @@ export async function updateUser(data) {
         id: Number(data.id),
       },
       data: {
-        name: data.name,
-        image: data.image,
-        email: data.email,
+        name: data.name || "",
+        image: data.image || "",
+        email: data.email || "",
       },
     });
     console.log("User updated successfully:", updatedUser);
@@ -80,7 +79,10 @@ export async function updateUser(data) {
   sendMessageToStream("userUpdate", "User updated");
 }
 
-export async function createPost(roomId: string, data: FormData) {
+export async function createPost(
+  roomId: string | number,
+  data: { message: string }
+) {
   console.log("CREATE POST", roomId, data);
 
   const content = data.message;
@@ -99,8 +101,8 @@ export async function createPost(roomId: string, data: FormData) {
 
 export async function createRoom(data: {
   name: string;
-  description: string;
-  image: string;
+  description?: string | undefined;
+  image?: string | undefined;
 }) {
   console.log("CREATE ROOM", data);
 

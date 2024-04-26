@@ -1,0 +1,76 @@
+# You can override the included template(s) by including variable overrides
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
+# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
+# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+stages:
+  - prettier
+  - lint
+  - security-test
+  - build
+  - build-docker
+
+variables:
+  NPM_CACHE_DIR: "$CI_PROJECT_DIR/.npm"
+
+cache:
+  key: "$CI_COMMIT_REF_NAME"
+  paths:
+    - node_modules/
+    - $NPM_CACHE_DIR/
+
+build:
+  stage: build
+  image: node:lts
+  before_script:
+    - npm ci
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - .next/
+    expire_in: 1 week 
+
+build-docker:
+  stage: build-docker
+  image: docker:24
+  services:
+    - docker:24-dind
+  script:
+    - docker-compose build
+  allow_failure: true
+  artifacts:
+    paths:
+      - docker-builds/
+    expire_in: 1 week 
+
+lint:
+  stage: lint
+  image: node:lts
+  before_script:
+    - npm ci
+  script:
+    - npm run lint
+  artifacts:
+    paths:
+      - lint-results/
+    expire_in: 1 week  # Adjust the expiration period as per your requirement
+
+prettier:
+  stage: prettier
+  image: node:lts
+  before_script:
+    - npm ci
+  script:
+    - npm run prettier:check
+  artifacts:
+    paths:
+      - prettier-results/
+    expire_in: 1 week  # Adjust the expiration period as per your requirement
+
+sast:
+  stage: security-test
+include:
+  - template: Security/SAST.gitlab-ci.yml

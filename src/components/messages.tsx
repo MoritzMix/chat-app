@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import io from "socket.io-client";
 import useSWR from "swr";
 import { Skeleton } from "./ui/skeleton";
+import { MessageWithUser } from "@/lib/interfaces";
 
 const fetcher = (...args: unknown[]) =>
   fetch(...(args as [RequestInfo, RequestInit?])).then((res) => res.json());
@@ -14,8 +15,8 @@ const MessageList = ({
   currentUserId,
   roomId,
 }: {
-  currentUserId: string;
-  roomId: string;
+  currentUserId: number;
+  roomId: number;
 }) => {
   const socket = io("http://localhost:3001");
 
@@ -35,7 +36,7 @@ const MessageList = ({
     socket.emit("leaveRoom", roomId);
   };
 
-  const handleSocketMessage = (data) => {
+  const handleSocketMessage = (data: string) => {
     console.log("Received from SERVER ::", data);
     mutate();
   };
@@ -50,13 +51,13 @@ const MessageList = ({
       handleLeaveRoom();
       socket.off("message", handleSocketMessage); // Clean up the subscription
     };
-  }, [socket]);
+  });
 
   function getMessages() {
     if (isLoading) {
       return SkeletonList();
     } else {
-      return messages.map((message) => (
+      return messages.map((message: MessageWithUser) => (
         <MessageEntry
           key={message.id}
           message={message}

@@ -22,7 +22,7 @@ const WSHandler = () => {
     return () => {
       socket.off("roomUpdate", handleRoomUpdate);
     };
-  }, [socket, router]);
+  });
 
   return null;
 };

@@ -13,19 +13,14 @@ export interface MessageWithUser extends Message {
 
 export interface UserData {
   name: string;
-  image: string | null;
+  image?: string | undefined;
   email: string;
   password: string;
 }
 
-export interface MessageWithData extends MessageWithUser {
-  message: MessageWithUser;
-  isCurrentUser: boolean;
-}
-
 export interface RoomEntryProps {
   className: string;
-  roomId: string;
+  roomId: number;
 }
 
 export interface IUserContext {

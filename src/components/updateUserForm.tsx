@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { User } from "next-auth";
 
 const userFormSchema = z.object({
   name: z.string({
@@ -41,11 +42,12 @@ export function UpdateUserForm({
   userData,
 }: {
   updateUser: (data: UpdateUserFormValues) => void;
+  userData: User;
 }) {
   const defaultValues: Partial<UpdateUserFormValues> = {
-    name: userData?.name,
+    name: userData?.name || undefined,
     image: userData?.image || undefined,
-    email: userData?.email,
+    email: userData?.email || undefined,
   };
 
   const form = useForm<UpdateUserFormValues>({

@@ -38,7 +38,7 @@ export default function RoomEntry({ className, roomId }: RoomEntryProps) {
 
   const createPostWithId = createPost.bind(null, roomId);
 
-  function onSubmit(data) {
+  function onSubmit(data: { message: string }) {
     createPostWithId(data);
     form.reset();
   }

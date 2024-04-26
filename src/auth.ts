@@ -23,6 +23,7 @@ export const authConfig = {
       return true;
     },
     async session({ session, token }) {
+      // @ts-ignore Dont want emailVerified in my data
       session.user = {
         id: token.sub ?? "",
         email: token.email ?? "",
@@ -50,7 +51,7 @@ export const authConfig = {
 
           if (passwordsMatch) {
             return {
-              id: user.id,
+              id: user.id.toString(),
               name: user.name,
               email: user.email,
               image: user.image,

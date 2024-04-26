@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MessageWithData } from "@/lib/interfaces";
+import { MessageWithUser } from "@/lib/interfaces";
 
 import {
   Card,
@@ -15,7 +15,13 @@ import {
 import { FC } from "react";
 import { convertToLocalTime } from "@/lib/utils";
 
-const MessageEntry: FC<MessageWithData> = ({ message, isCurrentUser }) => {
+interface MessageProps {
+  message: MessageWithUser;
+  isCurrentUser: boolean;
+}
+
+const MessageEntry: FC<MessageProps> = ({ message, isCurrentUser }) => {
+  console.log("MessageEntry", message, isCurrentUser);
   const currentUserStyle = isCurrentUser
     ? "ml-auto bg-chat-purple-lightest border-chat-purple-light"
     : "bg-gray-100 border-gray-200";
