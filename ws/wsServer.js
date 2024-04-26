@@ -7,6 +7,8 @@ const io = new Server(3001, {
   },
 });
 
+console.log("Websocket server started on port 3001");
+
 io.on("connection", (socket) => {
   // Joining a room
   socket.on("joinRoom", (roomId) => {
