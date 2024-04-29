@@ -25,32 +25,26 @@ const MessageList = ({
   );
   const messages = data?.data;
 
-  const handleJoinRoom = () => {
-    if (!socket) return;
-    socket.emit("joinRoom", roomId);
-  };
-
-  const handleLeaveRoom = () => {
-    if (!socket) return;
-    socket.emit("leaveRoom", roomId);
-  };
-
-  const handleSocketMessage = (data: string) => {
-    console.log("Received from SERVER ::", data);
-    mutate();
-  };
-
   useEffect(() => {
-    handleJoinRoom();
-    socket.on("message", handleSocketMessage);
-    socket.on("userUpdate", handleSocketMessage);
+    const handleSocketMessage = (data: string) => {
+      console.log("Received from SERVER ::", data);
+      mutate();
+    };
+
+    if (socket) {
+      socket.emit("joinRoom", roomId);
+      socket.on("message", handleSocketMessage);
+      socket.on("userUpdate", handleSocketMessage);
+    }
 
     // Clean up socket listeners when component unmounts
     return () => {
-      handleLeaveRoom();
-      socket.off("message", handleSocketMessage); // Clean up the subscription
+      if (socket) {
+        socket.emit("leaveRoom", roomId);
+        socket.off("userUpdate", handleSocketMessage);
+      }
     };
-  });
+  }, [roomId]);
 
   function getMessages() {
     if (isLoading) {

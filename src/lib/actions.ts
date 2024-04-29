@@ -6,6 +6,8 @@ import { AuthError, User } from "next-auth";
 
 //import bcrypt from "bcrypt";
 import { UserData } from "./interfaces";
+
+//propably needs anothe ip adress
 import socket from "@/lib/socket";
 
 export async function authenticate(data: { email: string; password: string }) {
@@ -139,7 +141,6 @@ export async function deleteRoom(data: { id: number }) {
 
 const sendMessageToStream = async (type: string, data: any): Promise<void> => {
   try {
-    console.log("sending update");
     socket.emit(type, data);
   } catch (error) {
     console.error("Error sending message to stream:", error);

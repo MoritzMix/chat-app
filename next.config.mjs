@@ -10,8 +10,8 @@ const nextConfig = {
     domains: ["picsum.photos"],
   },
   env: {
-    NEXTAUTH_URL: "http://localhost:3000", // Set the base URL for NextAuth.js
-    AUTH_TRUST_HOST: true, // Trust the host header from the reverse proxy
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL, // "http://localhost:3000", // Set the base URL for NextAuth.js
+    AUTH_TRUST_HOST: process.env.AUTH_TRUST_HOST, // Trust the host header from the reverse proxy
   },
 };
 

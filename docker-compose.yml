@@ -1,27 +1,23 @@
 services:
-  ws:
-    build:
-      context: .
-      dockerfile: ./docker/ws/Dockerfile
-    ports:
-      - "3001:3001"
-    restart: always
-    networks:
-      - custom_network
-  app:
-    build:
-      context: .
-      dockerfile: ./docker/app/Dockerfile
-    ports:
-      - "3000:3000"
-    depends_on:
-      db:
-        condition: service_healthy
-    restart: always
-    environment:
-      DATABASE_URL: postgresql://postgres:admin@db:5432/postgres
-    networks:
-      - custom_network
+  # ws:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/ws/Dockerfile
+  #   ports:
+  #     - "3001:3001"
+  #   restart: always
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/app/Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   restart: always
+  #   environment:
+  #     DATABASE_URL: postgresql://postgres:admin@db:5432/postgres
 
   db:
     image: postgres
@@ -40,16 +36,6 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data/
-    networks:
-      - custom_network
 volumes:
   db_data:
     driver: local
-
-networks:
-  custom_network:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.238.0/24

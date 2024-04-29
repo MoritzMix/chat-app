@@ -15,9 +15,10 @@ const WSHandler = () => {
 
   useEffect(() => {
     socket.on("roomUpdate", handleRoomUpdate);
-
+    console.log("WSHandler mounted");
     // Clean up socket listeners when component unmounts
     return () => {
+      console.log("WSHandler unmounted");
       socket.off("roomUpdate", handleRoomUpdate);
     };
   });
