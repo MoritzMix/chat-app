@@ -3,10 +3,11 @@
 import MessageEntry from "@/components/messageEntry";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect } from "react";
-import io from "socket.io-client";
+
 import useSWR from "swr";
 import { Skeleton } from "./ui/skeleton";
 import { MessageWithUser } from "@/lib/interfaces";
+import socket from "@/lib/socket";
 
 const fetcher = (...args: unknown[]) =>
   fetch(...(args as [RequestInfo, RequestInit?])).then((res) => res.json());
@@ -18,9 +19,6 @@ const MessageList = ({
   currentUserId: number;
   roomId: number;
 }) => {
-  //TODO env variable
-  const socket = io("http://localhost:3001");
-
   const { data, error, isLoading, mutate } = useSWR(
     `/api/messages/${roomId}`,
     fetcher

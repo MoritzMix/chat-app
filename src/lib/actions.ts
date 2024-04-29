@@ -4,13 +4,9 @@ import prisma from "@/lib/prisma";
 import { auth, signIn, signOut } from "@/auth";
 import { AuthError, User } from "next-auth";
 
-import io from "socket.io-client";
-
 //import bcrypt from "bcrypt";
 import { UserData } from "./interfaces";
-
-// ToDO: env variable
-const socket = io("http://localhost:3001");
+import socket from "@/lib/socket";
 
 export async function authenticate(data: { email: string; password: string }) {
   try {
@@ -88,7 +84,7 @@ export async function createPost(
   const content = data.message;
 
   const session = await auth();
-  console.log("CREATE POST", roomId, session?.user?.id, content);
+
   await prisma.message.create({
     data: {
       user_id: Number(session?.user?.id),
