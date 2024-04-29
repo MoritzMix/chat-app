@@ -1,5 +1,6 @@
 const { Server } = require("socket.io");
 
+//ToDo env variable
 const io = new Server(3001, {
   cors: {
     origin: "http://localhost:3000",

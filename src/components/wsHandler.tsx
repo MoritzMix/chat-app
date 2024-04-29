@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import io from "socket.io-client";
+//Todo env variable
 const socket = io("http://localhost:3001");
 
 const WSHandler = () => {

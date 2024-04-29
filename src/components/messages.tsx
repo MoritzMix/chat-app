@@ -18,6 +18,7 @@ const MessageList = ({
   currentUserId: number;
   roomId: number;
 }) => {
+  //TODO env variable
   const socket = io("http://localhost:3001");
 
   const { data, error, isLoading, mutate } = useSWR(

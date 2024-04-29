@@ -9,7 +9,7 @@ import io from "socket.io-client";
 //import bcrypt from "bcrypt";
 import { UserData } from "./interfaces";
 
-// Define the URL where your Socket.IO server is running
+// ToDO: env variable
 const socket = io("http://localhost:3001");
 
 export async function authenticate(data: { email: string; password: string }) {
