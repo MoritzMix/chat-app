@@ -8,6 +8,7 @@ import { AuthError, User } from "next-auth";
 import { UserData } from "./interfaces";
 
 //propably needs anothe ip adress
+//ws:
 import socket from "@/lib/socket";
 
 export async function authenticate(data: { email: string; password: string }) {
