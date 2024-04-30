@@ -39,7 +39,8 @@ build-docker:
   services:
     - docker:24-dind
   script:
-    - docker-compose build
+    - docker build -f docker/app/Dockerfile -t $CI_REGISTRY_IMAGE:app .
+    - docker build -f docker/ws/Dockerfile -t $CI_REGISTRY_IMAGE:ws .
   allow_failure: true
   artifacts:
     paths:
