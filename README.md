@@ -5,6 +5,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+npm ci
+
+# for the main app
 npm run dev
 # or
 yarn dev
@@ -12,6 +15,13 @@ yarn dev
 pnpm dev
 # or
 bun dev
+
+#for the ws server
+npm run server
+
+#for the postgres docker instance
+docker-compose up
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
