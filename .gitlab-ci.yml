@@ -28,6 +28,7 @@ build:
     - npm ci
   script:
     - npm run build
+
   artifacts:
     paths:
       - .next/
@@ -35,9 +36,9 @@ build:
 
 build-docker:
   stage: build-docker
-  image: docker:23-git
+  image: docker:24-git
   services:
-    - docker:23-dind
+    - docker:24-dind
   script:
     - docker build -f docker/app/Dockerfile -t $CI_COMMIT_REF_NAME-app .
     - docker build -f docker/ws/Dockerfile -t $CI_COMMIT_REF_NAME-ws .
