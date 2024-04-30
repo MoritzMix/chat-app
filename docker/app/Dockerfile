@@ -19,6 +19,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
+RUN npx prisma generate
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
@@ -27,7 +28,6 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-RUN npx prisma generate
 
 # Production image, copy all the files and run next
 FROM node:lts
