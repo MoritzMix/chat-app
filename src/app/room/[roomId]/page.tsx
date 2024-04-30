@@ -1,5 +1,4 @@
 "use server";
-export const dynamic = "force-dynamic";
 
 import MessageSubmit from "@/components/messageSubmit";
 import { Separator } from "@/components/ui/separator";
