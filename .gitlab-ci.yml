@@ -15,6 +15,12 @@ stages:
 variables:
   NPM_CACHE_DIR: "$CI_PROJECT_DIR/.npm"
 
+cache:
+  key: "$CI_COMMIT_REF_NAME"
+  paths:
+    - node_modules/
+    - $NPM_CACHE_DIR/
+
 build:
   stage: build
   image: node:lts

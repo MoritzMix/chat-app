@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "seed": "node seed.js",
-    "server": "node wsServer.js",
+    "server": "cd ws && node wsServer.js",
     "prettier:write": "prettier --write \"src/**/*.{ts,tsx}\"",
     "prettier:check": "prettier --check \"src/**/*.{ts,tsx}\""
   },
