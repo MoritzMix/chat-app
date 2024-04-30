@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { roomId: string } }
+  { params }: { params: { roomId: string } },
 ) {
   //get params id
   const roomId = parseInt(params.roomId);
@@ -34,7 +34,7 @@ export async function GET(
       },
       {
         status: 404,
-      }
+      },
     );
   }
 
@@ -47,6 +47,6 @@ export async function GET(
     },
     {
       status: 200,
-    }
+    },
   );
 }

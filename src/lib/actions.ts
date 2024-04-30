@@ -80,7 +80,7 @@ export async function updateUser(data: User) {
 
 export async function createPost(
   roomId: string | number,
-  data: { message: string }
+  data: { message: string },
 ) {
   console.log("CREATE POST", roomId, data);
 

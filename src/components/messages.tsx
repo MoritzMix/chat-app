@@ -21,7 +21,7 @@ const MessageList = ({
 }) => {
   const { data, error, isLoading, mutate } = useSWR(
     `/api/messages/${roomId}`,
-    fetcher
+    fetcher,
   );
   const messages = data?.data;
 
