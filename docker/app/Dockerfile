@@ -27,6 +27,8 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
+RUN npx prisma generate
+
 # Production image, copy all the files and run next
 FROM node:lts
 
