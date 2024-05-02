@@ -41,11 +41,13 @@ build-docker:
     REG: $CI_REGISTRY_IMAGE
   services:
     - docker:24-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -f docker/app/Dockerfile -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME-app .
-    - docker build -f docker/ws/Dockerfile -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME-ws .
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME-app
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME-ws
+    - docker build -f docker/app/Dockerfile -t $REG:$CI_COMMIT_REF_NAME-app .
+    - docker build -f docker/ws/Dockerfile -t $REG:$CI_COMMIT_REF_NAME-ws .
+    - docker push $REG:$CI_COMMIT_REF_NAME-app
+    - docker push $REG:$CI_COMMIT_REF_NAME-ws
   allow_failure: true
   artifacts:
     paths:
