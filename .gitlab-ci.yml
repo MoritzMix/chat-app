@@ -37,11 +37,15 @@ build:
 build-docker:
   stage: build-docker
   image: docker:24-git
+  variables:
+    REG: $CI_REGISTRY_IMAGE
   services:
     - docker:24-dind
   script:
     - docker build -f docker/app/Dockerfile -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME-app .
     - docker build -f docker/ws/Dockerfile -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME-ws .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME-app
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME-ws
   allow_failure: true
   artifacts:
     paths:
