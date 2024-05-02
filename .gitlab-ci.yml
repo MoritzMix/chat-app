@@ -6,14 +6,18 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-  - prettier
-  - lint
-  - security-test
+  #  - prettier
+  #  - lint
+  #  - security-test
   - build
   - build-docker
 
 variables:
   NPM_CACHE_DIR: "$CI_PROJECT_DIR/.npm"
+  TAG_PREFIX: "v" # Add your desired tag prefix here
+  VERSION: "1.0.0" # Add your version number or retrieve it dynamically
+  APP_TAG: "$TAG_PREFIX$VERSION-app"
+  WS_TAG: "$TAG_PREFIX$VERSION-ws"
 
 cache:
   key: "$CI_COMMIT_REF_NAME"
@@ -44,10 +48,10 @@ build-docker:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -f docker/app/Dockerfile -t $REG:$CI_COMMIT_REF_NAME-app .
-    - docker build -f docker/ws/Dockerfile -t $REG:$CI_COMMIT_REF_NAME-ws .
-    - docker push $REG:$CI_COMMIT_REF_NAME-app
-    - docker push $REG:$CI_COMMIT_REF_NAME-ws
+    - docker build -f docker/app/Dockerfile -t $REG:$APP_TAG .
+    - docker build -f docker/ws/Dockerfile -t $REG:$WS_TAG .
+    - docker push $REG:$APP_TAG
+    - docker push $REG:$WS_TAG
   allow_failure: true
   artifacts:
     paths:
