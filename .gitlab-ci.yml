@@ -40,7 +40,7 @@ build:
 
 build-docker:
   stage: build-docker
-  image: docker:24-git
+  image: docker:24
   variables:
     REG: $CI_REGISTRY_IMAGE
   services:
