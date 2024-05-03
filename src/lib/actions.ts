@@ -6,10 +6,13 @@ import { AuthError, User } from "next-auth";
 
 //import bcrypt from "bcrypt";
 import { UserData } from "./interfaces";
+import { io } from "socket.io-client";
 
 //propably needs anothe ip adress
 //ws:
-import socket from "@/lib/socket";
+//import socket from "@/lib/socket";
+
+const socket = io("ws://ws:3001");
 
 export async function authenticate(data: { email: string; password: string }) {
   try {
@@ -80,7 +83,7 @@ export async function updateUser(data: User) {
 
 export async function createPost(
   roomId: string | number,
-  data: { message: string },
+  data: { message: string }
 ) {
   console.log("CREATE POST", roomId, data);
 
