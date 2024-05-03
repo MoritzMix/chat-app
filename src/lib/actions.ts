@@ -8,11 +8,12 @@ import { AuthError, User } from "next-auth";
 import { UserData } from "./interfaces";
 import { io } from "socket.io-client";
 
-//propably needs anothe ip adress
-//ws:
-//import socket from "@/lib/socket";
-
-const socket = io("ws://ws:3001");
+//needs to be SOCKET_SERVICE_URL in docker
+const socketURL =
+  process.env.NODE_ENV === "production"
+    ? process.env.SOCKET_SERVICE_URL
+    : process.env.SOCKET_URL;
+const socket = io(socketURL || "http://localhost:3001");
 
 export async function authenticate(data: { email: string; password: string }) {
   try {
@@ -83,7 +84,7 @@ export async function updateUser(data: User) {
 
 export async function createPost(
   roomId: string | number,
-  data: { message: string }
+  data: { message: string },
 ) {
   console.log("CREATE POST", roomId, data);
 

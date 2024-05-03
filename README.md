@@ -1,46 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Project Starter
+
+Welcome to your Next.js project, bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+To get started with development, follow these steps:
+
+1. Install dependencies using npm, yarn, pnpm, or bun:
 
 ```bash
 npm ci
-
-# for the main app
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-
-#for the ws server
-npm run server
-
-#for the postgres docker instance
-docker-compose up
-
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Start the main app:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Start the WebSocket server:
+
+```bash
+npm run server
+```
+
+4. Set up the PostgreSQL Docker instance:
+
+```bash
+docker-compose up
+```
+
+Once everything is set up, navigate to [http://localhost:3000](http://localhost:3000) in your browser to see the result. The page will auto-update as you make changes to your code.
+
+## Key Features
+
+- **Font Optimization**: This project automatically optimizes and loads the Inter font, a custom Google Font, using [`next/font`](https://nextjs.org/docs/basic-features/font-optimization).
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+Explore more about Next.js with these resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs): Learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn): An interactive Next.js tutorial.
+- [Next.js GitHub Repository](https://github.com/vercel/next.js/): Your feedback and contributions are welcome!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Deploy your Next.js app easily on the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js. Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
