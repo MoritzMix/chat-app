@@ -12,19 +12,25 @@ To get started with development, follow these steps:
 npm ci
 ```
 
-2. Start the main app:
+2. Generate the Prisma client:
+
+```bash
+npx prisma generate
+```
+
+3. Start the main app:
 
 ```bash
 npm run dev
 ```
 
-3. Start the WebSocket server:
+4. Start the WebSocket server:
 
 ```bash
 npm run server
 ```
 
-4. Set up the PostgreSQL Docker instance:
+5. Set up the PostgreSQL Docker instance:
 
 ```bash
 docker-compose up
