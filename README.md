@@ -36,7 +36,7 @@ npm run server
 docker-compose up
 ```
 
-Once everything is set up, navigate to [http://localhost:3000](http://localhost:3000) in your browser to see the result. The page will auto-update as you make changes to your code.
+Once everything is set up, navigate to [http://localhost:3000/login](http://localhost:3000/login) in your browser to see the result. The page will auto-update as you make changes to your code.
 
 ## Key Features
 
