@@ -12,10 +12,11 @@ To get started with development, follow these steps:
 npm ci
 ```
 
-2. Generate the Prisma client:
+2. Generate and migrate the Prisma client:
 
 ```bash
 npx prisma generate
+npx prisma migrate dev --name init 
 ```
 
 3. Start the main app:
